@@ -1,0 +1,87 @@
+---
+// QOM Baukasten – Vorlage für Dienstleistungs-Seiten
+import Layout from "./Layout.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import Faq from "../components/Faq.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  label: string;
+  heroTitle: string; // HTML erlaubt (accent-Span)
+  image: string;
+  imageAlt: string;
+  about: string[]; // Absätze, HTML erlaubt
+  includedTitle: string;
+  includedIntro: string; // HTML erlaubt
+  features: { b: string; text: string }[];
+  faq: { q: string; a: string }[];
+}
+
+const {
+  title,
+  description,
+  label,
+  heroTitle,
+  image,
+  imageAlt,
+  about,
+  includedTitle,
+  includedIntro,
+  features,
+  faq,
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="label">{label}</p>
+      <h1 class="display" set:html={heroTitle} />
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <h2 class="h3" style="margin-bottom: 20px;">Über diesen Service</h2>
+        <div class="prose">
+          {about.map((p) => <p set:html={p} />)}
+        </div>
+      </div>
+      <div class="service-img reveal">
+        <img src={image} alt={imageAlt} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="container">
+      <div class="reveal">
+        <p class="label">Was ist enthalten?</p>
+        <h2 class="h2" style="max-width: 24ch;">{includedTitle}</h2>
+        <div class="prose" style="margin-top: 24px;">
+          <p set:html={includedIntro} />
+        </div>
+      </div>
+      <ul class="feature-list" style="margin-top: 40px;">
+        {
+          features.map((f) => (
+            <li class="reveal">
+              <span>
+                <b>{f.b}</b> {f.text}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Erstgespräch mit Tim buchen"
+    text="Sichern Sie sich jetzt Ihr Erstgespräch und wählen Sie direkt Ihren Wunschtermin aus."
+  />
+
+  <Faq items={faq} />
+</Layout>

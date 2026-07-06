@@ -1,0 +1,27 @@
+---
+import { site, nav } from "../data/site.js";
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/">{site.shortName}<span>.</span></a>
+    <ul class="nav-links">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} class={path === item.href.replace(/\/$/, "") ? "active" : ""}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="btn btn-primary" href={site.bookingUrl} target="_blank" rel="noopener">
+          {site.bookingLabel}
+        </a>
+      </li>
+    </ul>
+    <button class="burger" aria-label="Menü">☰</button>
+  </div>
+</nav>

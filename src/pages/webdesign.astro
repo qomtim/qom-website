@@ -1,0 +1,36 @@
+---
+import ServiceLayout from "../layouts/ServiceLayout.astro";
+import { faqCommon } from "../data/site.js";
+
+const faq = [
+  faqCommon[0],
+  {
+    q: "Unterstützen Sie auch Shopify-Shops?",
+    a: "Ja – E-Commerce gehört seit über sechs Jahren zu unserem Kerngeschäft. Wir bauen neue Shopify-Shops auf, optimieren bestehende und verbinden sie nahtlos mit Ihrer Webseite.",
+  },
+  ...faqCommon.slice(1),
+];
+---
+
+<ServiceLayout
+  title="Webdesign | QOM – Quit Ordinary Marketing"
+  description="Massgeschneiderte Webseiten aus Bösingen, die nicht nur gut aussehen, sondern aktiv Anfragen generieren. Blitzschnell, modern und mobiloptimiert."
+  label="Dienstleistung (01)"
+  heroTitle='Web<span class="accent">design</span>'
+  image="https://framerusercontent.com/images/NU8rd4zmvezvvzKrESbv7S3yy0.webp?width=512&height=341"
+  imageAlt="Webdesign bei QOM"
+  about={[
+    "Mit der Power moderner Web-Technologien, einem tiefen Verständnis für menschliche Verhaltensmuster und unserem klaren Fokus auf Conversion-Optimierung verwandeln wir Ihre Vision in ein digitales Aushängeschild. Wir bauen Webseiten, die nicht nur gut aussehen, sondern aktiv verkaufen.",
+    "Indem wir die Bedürfnisse Ihrer Zielgruppe mit Ihren geschäftlichen Zielen verschmelzen lassen, entsteht ein intuitives, benutzerzentriertes Design. Das Ergebnis? Ein bleibender digitaler Eindruck, der Ihre Besucher fesselt und Ihre Anfragen wie von selbst maximiert.",
+  ]}
+  includedTitle="Mehr als eine Visitenkarte – Ihr stärkster Mitarbeiter im Netz."
+  includedIntro="Bei QOM erhalten Sie nicht einfach nur eine Standard-Homepage; wir schaffen eine digitale Erlebnisplattform für Ihre Marke. Wir verwandeln jeden Klick eines potenziellen Kunden in eine Möglichkeit, Vertrauen aufzubauen und Ihr Unternehmen digital an die Spitze zu bringen – rund um die Uhr."
+  features={[
+    { b: "Massgeschneiderte High-End-Designs:", text: "Pixelgenau, individuell und exakt auf Ihre visuelle Identität abgestimmt." },
+    { b: "Hochleistungs-Entwicklung:", text: "Blitzschnelle Ladezeiten und saubere, moderne Programmierung für maximale Stabilität." },
+    { b: "Intuitive Nutzerführung (UX):", text: "Eine Struktur, die den Besucher ohne Umwege direkt zur Kontaktaufnahme leitet." },
+    { b: "Optimiert für Mobilgeräte:", text: "Perfekte Darstellung und reibungslose Funktion auf Smartphone, Tablet und Desktop." },
+    { b: "Nahtlose Zusammenarbeit:", text: "Transparente Abstimmung direkt mit unseren Experten in Freiburg – via WhatsApp, Mail oder Telefon." },
+  ]}
+  faq={faq}
+/>

@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { cases } from "../data/site.js";
+---
+
+<Layout
+  title="Projekte | QOM – Quit Ordinary Marketing"
+  description="Ausgewählte Projekte von QOM: Webseiten und Online-Shops für regionale Unternehmen."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="label">Case Studies</p>
+      <h1 class="display">Unsere <span class="accent">Projekte</span></h1>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="cards-2">
+        {
+          cases.map((c) => (
+            <a class="card reveal" href={c.url} target="_blank" rel="noopener">
+              <div class="card-img">
+                <img src={c.image} alt={`Webseite ${c.title}`} loading="lazy" />
+              </div>
+              <span class="tag">{c.tag}</span>
+              <h3 class="h3">{c.title}</h3>
+              <p>{c.text}</p>
+              <span class="card-link">{c.linkLabel}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Ihr Projekt könnte das nächste sein."
+    text="Unverbindliches Erstgespräch mit Tim – Wunschtermin direkt online wählen."
+  />
+</Layout>

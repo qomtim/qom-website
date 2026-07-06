@@ -1,0 +1,42 @@
+---
+import ServiceLayout from "../layouts/ServiceLayout.astro";
+import { faqCommon } from "../data/site.js";
+
+const faq = [
+  faqCommon[0],
+  faqCommon[3],
+  {
+    q: "Wie viel Werbebudget brauche ich?",
+    a: "Das hängt von Region, Branche und Zielen ab – für regionale Kampagnen reichen oft schon einige hundert Franken pro Monat für erste messbare Resultate. Im Erstgespräch geben wir Ihnen eine ehrliche Einschätzung.",
+  },
+  {
+    q: "Wie unterscheidet sich Ihr Ansatz von anderen Agenturen?",
+    a: "Wir messen uns an qualifizierten Anfragen, nicht an Klicks oder Likes. Dazu sind wir regional verankert und persönlich erreichbar – immer dasselbe feste Team, keine wechselnden Ansprechpartner.",
+  },
+  faqCommon[2],
+  faqCommon[4],
+];
+---
+
+<ServiceLayout
+  title="Social Media Kampagnen | QOM – Quit Ordinary Marketing"
+  description="Social-Media-Werbekampagnen für regionale Unternehmen: punktgenaues Targeting, messbare Resultate, komplette Betreuung von A bis Z."
+  label="Dienstleistung (03)"
+  heroTitle='Social Media <span class="accent">Kampagnen</span>'
+  image="https://framerusercontent.com/images/xnYTGCoFUW0q5apzPj64lvUV8Tk.png?width=1254&height=1254"
+  imageAlt="Social Media Kampagnen bei QOM"
+  about={[
+    "89 % der Schweizerinnen und Schweizer über 15 Jahren nutzen soziale Medien – und mittlerweile bewegen sich auch Zielgruppen der Generation 65+ aktiv auf diesen Plattformen. Hier liegt ein enormes, von vielen Unternehmen noch ungenutztes Potenzial: die Chance, mit vergleichsweise tiefen Werbekosten neue Kunden zu gewinnen.",
+    "Wir führen Sie von A bis Z durch diesen Prozess. Unsere Kampagnen sind nicht darauf ausgelegt, einfach Klicks zu generieren, sondern echte, messbare Resultate und qualifizierte Anfragen einzufahren. Wir verwandeln kalten Social-Media-Traffic in heisse Leads – regional, glasklar messbar und komplett ohne Mehraufwand für Ihr eigenes Team.",
+  ]}
+  includedTitle="Ein erprobtes System zur planbaren Kundengewinnung."
+  includedIntro="Mit unseren fixfertigen Kampagnen kaufen Sie keine vagen Versprechungen. Wir übernehmen die komplette Arbeit – von der ersten Werbeanzeige bis zur optimierten Zielseite."
+  features={[
+    { b: "Strategische Social-Media-Präsenz:", text: "Wir platzieren Ihre Marke exakt dort, wo sich Ihre Zielgruppe aufhält." },
+    { b: "Messerscharfes Targeting:", text: "Wunschkunden punktgenau erreichen – unabhängig vom Alter – und Streuverluste minimieren." },
+    { b: "Kundenanziehendes Anzeigen-Design:", text: "Hochwertige Bild- und Video-Anzeigen, die in der Timeline sofort ins Auge stechen." },
+    { b: "Verkaufsstarke Zielseiten (Landingpages):", text: "Massgeschneiderte Seiten, die Klicks direkt in konkrete Anfragen ummünzen." },
+    { b: "Transparentes Erfolgs-Tracking:", text: "Alle potenziellen Kunden laufen in einem System zusammen, das für Sie jederzeit einsehbar ist." },
+  ]}
+  faq={faq}
+/>

@@ -1,0 +1,42 @@
+---
+import ServiceLayout from "../layouts/ServiceLayout.astro";
+import { faqCommon } from "../data/site.js";
+
+const faq = [
+  faqCommon[0],
+  {
+    q: "Unterstützen Sie auch bestehende Shopify-Shops?",
+    a: "Ja – wir bauen nicht nur neue Shops auf, sondern optimieren auch bestehende: Design, Conversion, Produktvorlagen und Checkout-Prozess.",
+  },
+  faqCommon[1],
+  faqCommon[2],
+  {
+    q: "Kann ich den Shop danach selbst verwalten?",
+    a: "Ja, das ist unser Anspruch: Dank Shopify können Sie Produkte, Preise und Inhalte jederzeit selbst pflegen – ganz ohne Programmierkenntnisse. Bei der Übergabe zeigen wir Ihnen alles Schritt für Schritt.",
+  },
+  faqCommon[4],
+];
+---
+
+<ServiceLayout
+  title="Online-Shops | QOM – Quit Ordinary Marketing"
+  description="Shopify-Shops mit 6 Jahren Erfahrung: professionell, verkaufsstark und auch ohne technisches Vorwissen einfach zu pflegen."
+  label="Dienstleistung (02)"
+  heroTitle='Online-<span class="accent">Shops</span>'
+  image="https://framerusercontent.com/images/lwecTXwIZRXhuYcwduyO3ApNM9s.webp?width=2048&height=1365"
+  imageAlt="Online-Shops bei QOM"
+  about={[
+    "Ein erfolgreicher E-Commerce-Auftritt erfordert mehr als ein schönes Produkt – er verlangt ein nahtloses, verkaufspsychologisch optimiertes Einkaufserlebnis. Mit mittlerweile <strong>sechs Jahren Erfahrung</strong> in der Arbeit mit Shopify, dem heute führenden Standard für Online-Shops, verwandeln wir Ihren digitalen Auftritt in eine echte Umsatzmaschine.",
+    "Wir verstehen genau, wie moderne Käufer ticken, und eliminieren jeden Reibungspunkt im Bestellprozess. Unser Ziel: Shops, die Vertrauen ausstrahlen, Warenkorb-Abbrüche minimieren und Ihren digitalen Umsatz messbar skalieren.",
+  ]}
+  includedTitle="Keine Shops von der Stange."
+  includedIntro="Wir bauen massgeschneiderte Systeme, die genau auf Ihre Bedürfnisse zugeschnitten sind – mit <strong>persönlichen Vorlagen für Ihre Produkte</strong>, die perfekt zu Ihrer Marke passen. Das Beste daran: Dank des benutzerfreundlichen Aufbaus von Shopify behalten Sie die volle Kontrolle und können auch als technischer Laie jederzeit selbst Anpassungen vornehmen oder neue Produkte einpflegen."
+  features={[
+    { b: "Shopify E-Commerce-Exzellenz:", text: "Professionelles Setup durch sechs Jahre fundierte Branchenerfahrung." },
+    { b: "Individuelles Design:", text: "Einzigartige, konvertierende Vorlagen, exakt auf Ihre Produkte abgestimmt." },
+    { b: "Intuitive Bedienung:", text: "Volle Autonomie für Sie – einfache Anpassungen und Produktverwaltung ohne Programmierkenntnisse." },
+    { b: "Verkaufsoptimierter Bestellprozess:", text: "Ein reibungsloser, schneller Checkout für nachweislich höhere Kaufabschlüsse." },
+    { b: "Langfristige Skalierbarkeit:", text: "Ein System, das mit Ihrem Unternehmen mitwächst – von der ersten Bestellung bis zum rasanten Wachstum." },
+  ]}
+  faq={faq}
+/>

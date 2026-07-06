@@ -1,0 +1,72 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site.js";
+---
+
+<Layout title="Datenschutzerklärung | QOM – Quit Ordinary Marketing" noindex={true}>
+  <section class="legal">
+    <div class="container">
+      <h1 class="h2" style="margin-bottom: 30px;">Datenschutzerklärung</h1>
+      <div class="notice">
+        ⚠️ Entwurf nach Schweizer Datenschutzgesetz (revDSG) – bitte juristisch prüfen und die
+        verwendeten Dienste (Analytics, Buchungstool etc.) definitiv bestätigen.
+      </div>
+      <div class="prose">
+        <h2>1. Verantwortliche Stelle</h2>
+        <p>
+          QOM – Quit Ordinary Marketing, Bösingen (Schweiz)<br />
+          E-Mail: {site.email} · Telefon: {site.phone}
+        </p>
+
+        <h2>2. Erhebung und Bearbeitung von Personendaten</h2>
+        <p>
+          Wir bearbeiten Personendaten gemäss dem Schweizer Datenschutzgesetz (revDSG).
+          Personendaten erheben wir, wenn Sie uns kontaktieren (per E-Mail, Telefon oder
+          Kontaktformular), einen Termin über unser Buchungstool vereinbaren oder unsere Website
+          besuchen.
+        </p>
+
+        <h2>3. Terminbuchung</h2>
+        <p>
+          Für die Online-Terminbuchung nutzen wir TidyCal. Bei einer Buchung werden die von Ihnen
+          angegebenen Daten (Name, E-Mail-Adresse, gewählter Termin) an TidyCal übermittelt. Es
+          gilt zusätzlich die Datenschutzerklärung von TidyCal.
+        </p>
+
+        <h2>4. Hosting</h2>
+        <p>
+          Diese Website wird bei Infomaniak in der Schweiz gehostet. Beim Besuch der Website werden
+          technisch notwendige Daten (IP-Adresse, Datum und Uhrzeit des Zugriffs, Browsertyp) in
+          Server-Logfiles gespeichert. Diese Daten verbleiben in der Schweiz.
+        </p>
+
+        <h2>5. Cookies und Analyse</h2>
+        <p>
+          [BITTE BESTÄTIGEN: Setzt ihr Analytics/Tracking ein? Falls ja, hier den Dienst und die
+          Rechtsgrundlage ergänzen. Falls nein, kann dieser Abschnitt entsprechend kurz gehalten
+          werden.]
+        </p>
+
+        <h2>6. Weitergabe an Dritte</h2>
+        <p>
+          Wir geben Personendaten nur weiter, wenn dies zur Vertragserfüllung notwendig ist, wir
+          gesetzlich dazu verpflichtet sind oder Sie eingewilligt haben.
+        </p>
+
+        <h2>7. Ihre Rechte</h2>
+        <p>
+          Sie haben das Recht auf Auskunft über Ihre bei uns gespeicherten Personendaten sowie auf
+          deren Berichtigung oder Löschung. Wenden Sie sich dazu an {site.email}.
+        </p>
+
+        <h2>8. Änderungen</h2>
+        <p>
+          Wir können diese Datenschutzerklärung jederzeit anpassen. Es gilt die jeweils aktuelle,
+          auf dieser Website publizierte Fassung.
+        </p>
+
+        <p><em>Stand: Juli 2026</em></p>
+      </div>
+    </div>
+  </section>
+</Layout>

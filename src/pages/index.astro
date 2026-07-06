@@ -1,0 +1,205 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { site, services, cases, team, regio, quotes, stats } from "../data/site.js";
+---
+
+<Layout
+  title="QOM – Quit Ordinary Marketing | Digitales Wachstum aus Bösingen"
+  description="Webseiten, Online-Shops & Social-Media-Kampagnen aus Bösingen. Alles unter einem Dach. Ihr persönliches Marketing-Team für die Region."
+>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-blob" aria-hidden="true"></div>
+    <div class="container">
+      <p class="label">Marketing-Agentur aus {site.city}</p>
+      <h1 class="display">
+        <span class="line-reveal"><span>Digitales</span></span>
+        <span class="line-reveal"><span><span class="accent">Wachstum</span></span></span>
+        <span class="line-reveal"><span>aus {site.city}.</span></span>
+      </h1>
+      <div class="hero-row">
+        <p class="lead">
+          Webseiten, Online-Shops &amp; Social-Media-Kampagnen. Alles unter einem Dach – von Ihrem
+          persönlichen Marketing-Team aus der Region.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href={site.bookingUrl} target="_blank" rel="noopener">
+            Erstgespräch mit Tim buchen
+          </a>
+          <a class="btn btn-ghost btn-lg" href="/projekte">Unsere Arbeiten</a>
+        </div>
+      </div>
+      <div class="hero-img img-reveal">
+        <img
+          src="https://framerusercontent.com/images/iPIoxN3E6RFhvkYfd6R94dZAOoA.jpg?width=3100&height=1376"
+          alt="Das QOM-Team bei der Arbeit"
+          loading="eager"
+        />
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        Webdesign <b>·</b> Online-Shops <b>·</b> Social Media Kampagnen <b>·</b> Regional verankert
+        <b>·</b> Schweizer Hosting <b>·</b> Webdesign <b>·</b> Online-Shops <b>·</b> Social Media
+        Kampagnen <b>·</b> Regional verankert <b>·</b> Schweizer Hosting <b>·</b>
+      </div>
+    </div>
+  </header>
+
+  <!-- Zahlen -->
+  <section class="container">
+    <div class="stats">
+      {
+        stats.map((s) => (
+          <div class="stat reveal">
+            <span class="num" data-count={s.value} data-suffix={s.suffix}>
+              0
+            </span>
+            <p>{s.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Über uns Teaser -->
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <p class="label">Über uns</p>
+        <h2 class="h2">Ihr persönliches Marketing-Team</h2>
+        <div class="prose" style="margin-top: 24px;">
+          <p>
+            Wir lassen Unternehmen online wachsen. Wir sind QOM, ein junges Team aus Bösingen.
+            Unsere Vision ist es, regionale Unternehmen mit unserem Know-how im digitalen Marketing
+            auf dem Weg in die digitale Zukunft zu begleiten.
+          </p>
+        </div>
+        <div style="margin-top: 30px;">
+          <a class="btn btn-ghost" href="/ueber-uns">Mehr erfahren</a>
+        </div>
+      </div>
+      <div class="card-img reveal" style="aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;">
+        <img
+          src="https://framerusercontent.com/images/vBMBBzcVWULwO0O8PbtiXJveONQ.png?width=1254&height=1254"
+          alt="QOM – Quit Ordinary Marketing"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Dienstleistungen -->
+  <section class="section" id="dienstleistungen" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Dienstleistungen</p>
+          <h2 class="h2">Unsere Lösungen für Ihr Wachstum</h2>
+        </div>
+      </div>
+      <ul class="service-rows reveal">
+        {
+          services.map((s) => (
+            <li>
+              <a class="service-row" href={`/${s.slug}`} data-img={s.image}>
+                <span class="num">{s.num}</span>
+                <h3>{s.title}</h3>
+                <p>{s.teaser}</p>
+                <span class="arrow">→</span>
+                <div class="mobile-img">
+                  <img src={s.image} alt={s.title} loading="lazy" />
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Case Studies</p>
+          <h2 class="h2">Gemeinsame Erfolge</h2>
+        </div>
+        <a class="btn btn-ghost" href="/projekte">Alle Case Studies ansehen</a>
+      </div>
+      <div class="cards-2">
+        {
+          cases.map((c) => (
+            <a class="card reveal" href={c.url} target="_blank" rel="noopener">
+              <div class="card-img">
+                <img src={c.image} alt={`Webseite ${c.title}`} loading="lazy" />
+              </div>
+              <span class="tag">{c.tag}</span>
+              <h3 class="h3">{c.title}</h3>
+              <p>{c.text}</p>
+              <span class="card-link">{c.linkLabel}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional verankert -->
+  <section class="regio-section" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="container">
+      <div class="reveal">
+        <p class="label">Regional verankert</p>
+        <h2 class="h2">Nicht nur digital unterwegs.</h2>
+        <p class="lead" style="margin-top: 20px;">
+          Wir sind auch persönlich in der Region präsent – vernetzt, engagiert und nahe am lokalen
+          Wirtschaftsraum.
+        </p>
+      </div>
+      <div class="regio-grid">
+        {
+          regio.map((r) => (
+            <div class="regio-card reveal">
+              <div class="regio-img">
+                <img src={r.image} alt={r.title} loading="lazy" />
+              </div>
+              <div class="regio-body">
+                <h4>{r.title}</h4>
+                <p>{r.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Referenzen -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Referenzen</p>
+          <h2 class="h2">Das sagen unsere Kunden</h2>
+        </div>
+      </div>
+      <div class="cards-2">
+        {
+          quotes.map((q) => (
+            <div class="quote-card reveal">
+              <span class="stars">★★★★★</span>
+              <p>{q.text}</p>
+              <span class="who">{q.who}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Bereit für digitales Wachstum?"
+    text="Sichern Sie sich jetzt Ihr unverbindliches Erstgespräch mit Tim und wählen Sie direkt Ihren Wunschtermin."
+  />
+</Layout>

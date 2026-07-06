@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { team } from "../data/site.js";
+---
+
+<Layout
+  title="Über uns | QOM – Quit Ordinary Marketing"
+  description="Von der Schulbank zum Start-up: Wir sind QOM, ein junges Team aus Bösingen. Lernen Sie uns kennen."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="label">Wer sind wir?</p>
+      <h1 class="display">Von der Schulbank zum <span class="accent">Start-up</span>.</h1>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose reveal">
+        <p>
+          Manche Freundschaften halten ein Leben lang – unsere gründete zusätzlich ein Unternehmen.
+          Alles begann im Klassenzimmer der Handelsmittelschule in Freiburg. Zwischen Hausaufgaben
+          und ersten Business-Cases merkten wir schnell: Die Chemie stimmt nicht nur beim
+          Mittagessen, sondern auch bei der Arbeit.
+        </p>
+        <p>
+          Schon damals haben wir unsere ersten unternehmerischen Projekte gestartet, Konzepte
+          entworfen und gelernt, dass vier Köpfe mehr erreichen als einer. Heute bündeln wir diese
+          Energie, um für lokale Unternehmen Webseiten und Online-Shops zu bauen, die keine Wünsche
+          offenlassen.
+        </p>
+      </div>
+      <div class="card-img reveal" style="aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;">
+        <img
+          src="https://framerusercontent.com/images/Xi0PUrr9lreKtboJJETLOTAsJg.webp?width=2048&height=1536"
+          alt="Das QOM-Team"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Unser Team</p>
+          <h2 class="h2">Vier Köpfe. Ein Ziel.</h2>
+        </div>
+      </div>
+      <div class="team-grid">
+        {
+          team.map((m) => (
+            <div class="member reveal">
+              <div class="photo">
+                <img src={m.image} alt={m.name} />
+              </div>
+              <h4>{m.name}</h4>
+              <p>{m.role}</p>
+              {m.linkedin && (
+                <a href={m.linkedin} target="_blank" rel="noopener">
+                  LinkedIn →
+                </a>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Lernen wir uns kennen."
+    text="Unverbindliches Erstgespräch mit Tim – Wunschtermin direkt online wählen."
+  />
+</Layout>
