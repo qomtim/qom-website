@@ -32,6 +32,30 @@ async function api(method, path, body) {
 // Kurze Pause zwischen Calls (Rate-Limit der Management API)
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// ---------- 0) Verbindungs-Check mit klaren Fehlermeldungen ----------
+
+async function preflight() {
+  const r = await api("GET", "");
+  if (r.status === 401) {
+    console.error("❌ FEHLER: Der STORYBLOK_MANAGEMENT_TOKEN wird nicht akzeptiert (401).");
+    console.error("   → Es muss ein PERSONAL ACCESS TOKEN sein: app.storyblok.com → Avatar oben rechts → My Account → Security → Personal Access Tokens.");
+    console.error("   → NICHT der Preview-Token aus den Space-Settings.");
+    process.exit(1);
+  }
+  if (r.status === 404) {
+    console.error(`❌ FEHLER: Space mit ID "${SPACE}" nicht gefunden (404).`);
+    console.error("   → STORYBLOK_SPACE_ID prüfen: Die Zahl in der URL app.storyblok.com/#/me/spaces/HIER/... (nur Ziffern).");
+    process.exit(1);
+  }
+  if (!r.ok) {
+    console.error(`❌ FEHLER beim Verbindungs-Check (${r.status}):`, r.text?.slice(0, 300));
+    process.exit(1);
+  }
+  console.log(`✓ Verbindung ok – Space: ${r.json?.space?.name ?? SPACE}`);
+}
+
+await preflight();
+
 // ---------- 1) Komponenten (Schema) ----------
 
 const textField = (name, pos = 0) => ({ type: "text", display_name: name, pos });
@@ -164,7 +188,7 @@ async function upsertComponents() {
     } else {
       const r = await api("POST", "/components", payload);
       console.log(`Komponente erstellt: ${comp.name} (${r.status})`);
-      if (!r.ok) console.error(r.text);
+      if (!r.ok) { console.error(r.text?.slice(0, 300)); process.exit(1); }
     }
     await wait(400);
   }
