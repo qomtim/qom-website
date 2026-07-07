@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaBanner from "../components/CtaBanner.astro";
-import { site, services, cases, team, regio, quotes, stats } from "../data/site.js";
+import { site, services, cases, regio, quotes, stats, hero, about } from "../data/content.js";
 ---
 
 <Layout
@@ -12,17 +12,14 @@ import { site, services, cases, team, regio, quotes, stats } from "../data/site.
   <header class="hero">
     <div class="hero-blob" aria-hidden="true"></div>
     <div class="container">
-      <p class="label">Marketing-Agentur aus {site.city}</p>
+      <p class="label">{hero.label}</p>
       <h1 class="display">
-        <span class="line-reveal"><span>Digitales</span></span>
-        <span class="line-reveal"><span><span class="accent">Wachstum</span></span></span>
-        <span class="line-reveal"><span>aus {site.city}.</span></span>
+        <span class="line-reveal"><span>{hero.title1}</span></span>
+        <span class="line-reveal"><span><span class="accent">{hero.titleAccent}</span></span></span>
+        <span class="line-reveal"><span>{hero.title2}</span></span>
       </h1>
       <div class="hero-row">
-        <p class="lead">
-          Webseiten, Online-Shops &amp; Social-Media-Kampagnen. Alles unter einem Dach – von Ihrem
-          persönlichen Marketing-Team aus der Region.
-        </p>
+        <p class="lead">{hero.lead}</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href={site.bookingUrl} target="_blank" rel="noopener">
             Erstgespräch mit Tim buchen
@@ -31,11 +28,7 @@ import { site, services, cases, team, regio, quotes, stats } from "../data/site.
         </div>
       </div>
       <div class="hero-img img-reveal">
-        <img
-          src="https://framerusercontent.com/images/iPIoxN3E6RFhvkYfd6R94dZAOoA.jpg?width=3100&height=1376"
-          alt="Das QOM-Team bei der Arbeit"
-          loading="eager"
-        />
+        <img src={hero.image} alt="Das QOM-Team bei der Arbeit" loading="eager" />
       </div>
     </div>
     <div class="marquee" aria-hidden="true">
@@ -68,23 +61,16 @@ import { site, services, cases, team, regio, quotes, stats } from "../data/site.
     <div class="container two-col">
       <div class="reveal">
         <p class="label">Über uns</p>
-        <h2 class="h2">Ihr persönliches Marketing-Team</h2>
+        <h2 class="h2">{about.title}</h2>
         <div class="prose" style="margin-top: 24px;">
-          <p>
-            Wir lassen Unternehmen online wachsen. Wir sind QOM, ein junges Team aus Bösingen.
-            Unsere Vision ist es, regionale Unternehmen mit unserem Know-how im digitalen Marketing
-            auf dem Weg in die digitale Zukunft zu begleiten.
-          </p>
+          <p>{about.text}</p>
         </div>
         <div style="margin-top: 30px;">
           <a class="btn btn-ghost" href="/ueber-uns">Mehr erfahren</a>
         </div>
       </div>
       <div class="card-img reveal" style="aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;">
-        <img
-          src="https://framerusercontent.com/images/vBMBBzcVWULwO0O8PbtiXJveONQ.png?width=1254&height=1254"
-          alt="QOM – Quit Ordinary Marketing"
-        />
+        <img src={about.image} alt="QOM – Quit Ordinary Marketing" />
       </div>
     </div>
   </section>

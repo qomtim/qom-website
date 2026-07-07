@@ -17,6 +17,21 @@ export const site = {
   year: 2026,
 };
 
+export const hero = {
+  label: "Marketing-Agentur aus Bösingen",
+  title1: "Digitales",
+  titleAccent: "Wachstum",
+  title2: "aus Bösingen.",
+  lead: "Webseiten, Online-Shops & Social-Media-Kampagnen. Alles unter einem Dach – von Ihrem persönlichen Marketing-Team aus der Region.",
+  image: "https://framerusercontent.com/images/iPIoxN3E6RFhvkYfd6R94dZAOoA.jpg?width=3100&height=1376",
+};
+
+export const about = {
+  title: "Ihr persönliches Marketing-Team",
+  text: "Wir lassen Unternehmen online wachsen. Wir sind QOM, ein junges Team aus Bösingen. Unsere Vision ist es, regionale Unternehmen mit unserem Know-how im digitalen Marketing auf dem Weg in die digitale Zukunft zu begleiten.",
+  image: "https://framerusercontent.com/images/vBMBBzcVWULwO0O8PbtiXJveONQ.png?width=1254&height=1254",
+};
+
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Über uns", href: "/ueber-uns" },

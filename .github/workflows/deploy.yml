@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+  schedule:
+    # Jede Nacht um 03:15 UTC neu bauen – holt die neusten Storyblok-Inhalte
+    - cron: "15 3 * * *"
 
 jobs:
   build-and-deploy:
@@ -23,7 +26,9 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Seite bauen
+      - name: Seite bauen (Inhalte aus Storyblok, mit Fallback)
+        env:
+          STORYBLOK_TOKEN: ${{ secrets.STORYBLOK_TOKEN }}
         run: npm run build
 
       - name: Per FTP zu Infomaniak hochladen
@@ -33,4 +38,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./neu.quitordinarymarketing.ch/
+          server-dir: ./sites/neu/

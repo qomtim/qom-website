@@ -1,0 +1,29 @@
+# QOM Baukasten – Storyblok einmalig einrichten (Schema + Inhalte)
+# Läuft automatisch, wenn sich das Setup-Skript ändert, oder manuell
+# über den "Run workflow"-Button im Actions-Tab.
+name: Storyblok Setup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/storyblok-setup.mjs"
+  workflow_dispatch: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Storyblok-Schema anlegen und Inhalte befüllen
+        env:
+          STORYBLOK_SPACE_ID: ${{ secrets.STORYBLOK_SPACE_ID }}
+          STORYBLOK_MANAGEMENT_TOKEN: ${{ secrets.STORYBLOK_MANAGEMENT_TOKEN }}
+        run: node scripts/storyblok-setup.mjs
