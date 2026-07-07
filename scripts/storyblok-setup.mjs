@@ -227,7 +227,7 @@ const storyContent = {
   booking_url: site.bookingUrl,
   booking_label: site.bookingLabel,
   city: site.city,
-  stats: stats.map((s) => b("stat", { value: s.value, suffix: s.suffix, label: s.label })),
+  stats: stats.map((s) => b("stat", { value: String(s.value), suffix: s.suffix, label: s.label })),
   services: services.map((s) => b("service", s)),
   cases: cases.map((c) => b("case_study", { tag: c.tag, title: c.title, url: c.url, link_label: c.linkLabel, text: c.text, image: c.image })),
   team: team.map((m) => b("member", { name: m.name, role: m.role, image: m.image, linkedin: m.linkedin ?? "" })),
