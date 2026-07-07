@@ -31,12 +31,9 @@ jobs:
           STORYBLOK_TOKEN: ${{ secrets.STORYBLOK_TOKEN }}
         run: npm run build
 
-      - name: Per FTP zu Infomaniak hochladen
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          # FTP-User qom-deploy ist auf /sites/neu.quitordinarymarketing.ch beschränkt
-          server-dir: ./
+      - name: Per FTP zu Infomaniak hochladen (findet Zielordner selbst)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: node scripts/deploy-ftp.mjs
