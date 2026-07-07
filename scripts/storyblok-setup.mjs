@@ -7,10 +7,16 @@
 
 import { site, services, cases, team, regio, quotes, stats, faqCommon, hero, about } from "../src/data/site.js";
 
-const SPACE = process.env.STORYBLOK_SPACE_ID;
-const TOKEN = process.env.STORYBLOK_MANAGEMENT_TOKEN;
+const SPACE = (process.env.STORYBLOK_SPACE_ID || "").trim();
+const TOKEN = (process.env.STORYBLOK_MANAGEMENT_TOKEN || "").trim();
 if (!SPACE || !TOKEN) {
   console.error("FEHLER: STORYBLOK_SPACE_ID oder STORYBLOK_MANAGEMENT_TOKEN fehlt.");
+  process.exit(1);
+}
+// Diagnose ohne Geheimnisse zu verraten:
+console.log(`Diagnose: Space-ID hat ${SPACE.length} Zeichen, nur Ziffern: ${/^\d+$/.test(SPACE)} | Token hat ${TOKEN.length} Zeichen`);
+if (!/^\d+$/.test(SPACE)) {
+  console.error("❌ FEHLER: STORYBLOK_SPACE_ID darf nur aus Ziffern bestehen (keine #, Leerzeichen oder Buchstaben).");
   process.exit(1);
 }
 
@@ -177,7 +183,11 @@ const components = [
 ];
 
 async function upsertComponents() {
-  const existing = await api("GET", "/components");
+  const existing = await api("GET", "/components/");
+  if (!existing.ok) {
+    console.error(`❌ FEHLER: Komponenten-Liste nicht lesbar (${existing.status}):`, existing.text?.slice(0, 300));
+    process.exit(1);
+  }
   const byName = new Map((existing.json?.components ?? []).map((c) => [c.name, c.id]));
 
   for (const comp of components) {
@@ -185,10 +195,11 @@ async function upsertComponents() {
     if (byName.has(comp.name)) {
       const r = await api("PUT", `/components/${byName.get(comp.name)}`, payload);
       console.log(`Komponente aktualisiert: ${comp.name} (${r.status})`);
+      if (!r.ok) { console.error(r.text?.slice(0, 400)); process.exit(1); }
     } else {
-      const r = await api("POST", "/components", payload);
+      const r = await api("POST", "/components/", payload);
       console.log(`Komponente erstellt: ${comp.name} (${r.status})`);
-      if (!r.ok) { console.error(r.text?.slice(0, 300)); process.exit(1); }
+      if (!r.ok) { console.error(r.text?.slice(0, 400)); process.exit(1); }
     }
     await wait(400);
   }
@@ -226,7 +237,7 @@ const storyContent = {
 };
 
 async function upsertStory() {
-  const found = await api("GET", "/stories?with_slug=site");
+  const found = await api("GET", "/stories/?with_slug=site");
   const existing = found.json?.stories?.[0];
   const payload = { story: { name: "Website-Inhalte", slug: "site", content: storyContent }, publish: 1 };
 
@@ -244,5 +255,3 @@ async function upsertStory() {
 await upsertComponents();
 await upsertStory();
 console.log("✅ Storyblok-Setup abgeschlossen. Inhalte sind unter app.storyblok.com bearbeitbar.");
-
-// Setup-Neustart: 1783432380
