@@ -61,30 +61,31 @@ export const about = {
 
 export const nav = fb.nav;
 
+// uid = Storyblok-Element-ID (nötig fürs Klick-Editing im Visual Editor)
 export const services = c?.services?.length
-  ? c.services.map((s) => ({ num: s.num, title: s.title, slug: s.slug, teaser: s.teaser, image: s.image }))
+  ? c.services.map((s) => ({ num: s.num, title: s.title, slug: s.slug, teaser: s.teaser, image: s.image, uid: s._uid }))
   : fb.services;
 
 export const cases = c?.cases?.length
-  ? c.cases.map((x) => ({ tag: x.tag, title: x.title, url: x.url, linkLabel: x.link_label, text: x.text, image: x.image }))
+  ? c.cases.map((x) => ({ tag: x.tag, title: x.title, url: x.url, linkLabel: x.link_label, text: x.text, image: x.image, uid: x._uid }))
   : fb.cases;
 
 export const team = c?.team?.length
-  ? c.team.map((m) => ({ name: m.name, role: m.role, image: m.image, linkedin: m.linkedin || null }))
+  ? c.team.map((m) => ({ name: m.name, role: m.role, image: m.image, linkedin: m.linkedin || null, uid: m._uid }))
   : fb.team;
 
 export const regio = c?.regio?.length
-  ? c.regio.map((r) => ({ title: r.title, text: r.text, image: r.image }))
+  ? c.regio.map((r) => ({ title: r.title, text: r.text, image: r.image, uid: r._uid }))
   : fb.regio;
 
 export const quotes = c?.quotes?.length
-  ? c.quotes.map((q) => ({ text: q.text, who: q.who }))
+  ? c.quotes.map((q) => ({ text: q.text, who: q.who, uid: q._uid }))
   : fb.quotes;
 
 export const stats = c?.stats?.length
-  ? c.stats.map((s) => ({ value: Number(s.value) || 0, suffix: s.suffix || "", label: s.label }))
+  ? c.stats.map((s) => ({ value: Number(s.value) || 0, suffix: s.suffix || "", label: s.label, uid: s._uid }))
   : fb.stats;
 
 export const faqCommon = c?.faq?.length
-  ? c.faq.map((f) => ({ q: f.question, a: f.answer }))
+  ? c.faq.map((f) => ({ q: f.question, a: f.answer, uid: f._uid }))
   : fb.faqCommon;

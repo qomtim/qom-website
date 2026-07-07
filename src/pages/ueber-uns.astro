@@ -51,12 +51,12 @@ import { team } from "../data/content.js";
       <div class="team-grid">
         {
           team.map((m) => (
-            <div class="member reveal">
+            <div class="member reveal" data-sb-uid={m.uid}>
               <div class="photo">
-                <img src={m.image} alt={m.name} />
+                <img src={m.image} alt={m.name} data-sb-f-img="image" />
               </div>
-              <h4>{m.name}</h4>
-              <p>{m.role}</p>
+              <h4 data-sb-f="name">{m.name}</h4>
+              <p data-sb-f="role">{m.role}</p>
               {m.linkedin && (
                 <a href={m.linkedin} target="_blank" rel="noopener">
                   LinkedIn →

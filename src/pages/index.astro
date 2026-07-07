@@ -12,14 +12,14 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
   <header class="hero">
     <div class="hero-blob" aria-hidden="true"></div>
     <div class="container">
-      <p class="label">{hero.label}</p>
+      <p class="label" data-sb="hero_label">{hero.label}</p>
       <h1 class="display">
-        <span class="line-reveal"><span>{hero.title1}</span></span>
-        <span class="line-reveal"><span><span class="accent">{hero.titleAccent}</span></span></span>
-        <span class="line-reveal"><span>{hero.title2}</span></span>
+        <span class="line-reveal"><span data-sb="hero_title_1">{hero.title1}</span></span>
+        <span class="line-reveal"><span><span class="accent" data-sb="hero_title_accent">{hero.titleAccent}</span></span></span>
+        <span class="line-reveal"><span data-sb="hero_title_2">{hero.title2}</span></span>
       </h1>
       <div class="hero-row">
-        <p class="lead">{hero.lead}</p>
+        <p class="lead" data-sb="hero_lead">{hero.lead}</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href={site.bookingUrl} target="_blank" rel="noopener">
             Erstgespräch mit Tim buchen
@@ -28,7 +28,7 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
         </div>
       </div>
       <div class="hero-img img-reveal">
-        <img src={hero.image} alt="Das QOM-Team bei der Arbeit" loading="eager" />
+        <img src={hero.image} alt="Das QOM-Team bei der Arbeit" loading="eager" data-sb-img="hero_image" />
       </div>
     </div>
     <div class="marquee" aria-hidden="true">
@@ -45,11 +45,11 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
     <div class="stats">
       {
         stats.map((s) => (
-          <div class="stat reveal">
+          <div class="stat reveal" data-sb-uid={s.uid}>
             <span class="num" data-count={s.value} data-suffix={s.suffix}>
               0
             </span>
-            <p>{s.label}</p>
+            <p data-sb-f="label">{s.label}</p>
           </div>
         ))
       }
@@ -61,16 +61,16 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
     <div class="container two-col">
       <div class="reveal">
         <p class="label">Über uns</p>
-        <h2 class="h2">{about.title}</h2>
+        <h2 class="h2" data-sb="about_title">{about.title}</h2>
         <div class="prose" style="margin-top: 24px;">
-          <p>{about.text}</p>
+          <p data-sb="about_text">{about.text}</p>
         </div>
         <div style="margin-top: 30px;">
           <a class="btn btn-ghost" href="/ueber-uns">Mehr erfahren</a>
         </div>
       </div>
       <div class="card-img reveal" style="aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;">
-        <img src={about.image} alt="QOM – Quit Ordinary Marketing" />
+        <img src={about.image} alt="QOM – Quit Ordinary Marketing" data-sb-img="about_image" />
       </div>
     </div>
   </section>
@@ -87,11 +87,11 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
       <ul class="service-rows reveal">
         {
           services.map((s) => (
-            <li>
+            <li data-sb-uid={s.uid}>
               <a class="service-row" href={`/${s.slug}`} data-img={s.image}>
-                <span class="num">{s.num}</span>
-                <h3>{s.title}</h3>
-                <p>{s.teaser}</p>
+                <span class="num" data-sb-f="num">{s.num}</span>
+                <h3 data-sb-f="title">{s.title}</h3>
+                <p data-sb-f="teaser">{s.teaser}</p>
                 <span class="arrow">→</span>
                 <div class="mobile-img">
                   <img src={s.image} alt={s.title} loading="lazy" />
@@ -117,14 +117,14 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
       <div class="cards-2">
         {
           cases.map((c) => (
-            <a class="card reveal" href={c.url} target="_blank" rel="noopener">
+            <a class="card reveal" href={c.url} target="_blank" rel="noopener" data-sb-uid={c.uid}>
               <div class="card-img">
-                <img src={c.image} alt={`Webseite ${c.title}`} loading="lazy" />
+                <img src={c.image} alt={`Webseite ${c.title}`} loading="lazy" data-sb-f-img="image" />
               </div>
-              <span class="tag">{c.tag}</span>
-              <h3 class="h3">{c.title}</h3>
-              <p>{c.text}</p>
-              <span class="card-link">{c.linkLabel}</span>
+              <span class="tag" data-sb-f="tag">{c.tag}</span>
+              <h3 class="h3" data-sb-f="title">{c.title}</h3>
+              <p data-sb-f="text">{c.text}</p>
+              <span class="card-link" data-sb-f="link_label">{c.linkLabel}</span>
             </a>
           ))
         }
@@ -146,13 +146,13 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
       <div class="regio-grid">
         {
           regio.map((r) => (
-            <div class="regio-card reveal">
+            <div class="regio-card reveal" data-sb-uid={r.uid}>
               <div class="regio-img">
-                <img src={r.image} alt={r.title} loading="lazy" />
+                <img src={r.image} alt={r.title} loading="lazy" data-sb-f-img="image" />
               </div>
               <div class="regio-body">
-                <h4>{r.title}</h4>
-                <p>{r.text}</p>
+                <h4 data-sb-f="title">{r.title}</h4>
+                <p data-sb-f="text">{r.text}</p>
               </div>
             </div>
           ))
@@ -173,10 +173,10 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
       <div class="cards-2">
         {
           quotes.map((q) => (
-            <div class="quote-card reveal">
+            <div class="quote-card reveal" data-sb-uid={q.uid}>
               <span class="stars">★★★★★</span>
-              <p>{q.text}</p>
-              <span class="who">{q.who}</span>
+              <p data-sb-f="text">{q.text}</p>
+              <span class="who" data-sb-f="who">{q.who}</span>
             </div>
           ))
         }

@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { title, description = "", noindex = false } = Astro.props;
+// Preview-Token für den Storyblok Visual Editor (nur aktiv innerhalb des Editors)
+const sbPreviewToken = process.env.STORYBLOK_TOKEN || "";
 ---
 
 <!doctype html>
@@ -27,11 +29,13 @@ const { title, description = "", noindex = false } = Astro.props;
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+    {sbPreviewToken && <meta name="sb-preview-token" content={sbPreviewToken} />}
   </head>
   <body>
     <Nav />
     <slot />
     <Footer />
     <script src="/script.js" is:inline></script>
+    <script src="/preview.js" is:inline></script>
   </body>
 </html>
