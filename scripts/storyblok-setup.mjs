@@ -244,3 +244,5 @@ async function upsertStory() {
 await upsertComponents();
 await upsertStory();
 console.log("✅ Storyblok-Setup abgeschlossen. Inhalte sind unter app.storyblok.com bearbeitbar.");
+
+// Setup-Neustart: 1783432380
