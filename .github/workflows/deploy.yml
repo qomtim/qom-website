@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+  # Wird von n8n ausgelöst, wenn in Storyblok publiziert wird
+  repository_dispatch:
+    types: [storyblok-publish]
   schedule:
     # Jede Nacht um 03:15 UTC neu bauen – holt die neusten Storyblok-Inhalte
     - cron: "15 3 * * *"
