@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaBanner from "../components/CtaBanner.astro";
-import { team } from "../data/content.js";
+import { team, ueberUns } from "../data/content.js";
 ---
 
 <Layout
@@ -10,32 +10,22 @@ import { team } from "../data/content.js";
 >
   <header class="page-hero">
     <div class="container">
-      <p class="label">Wer sind wir?</p>
-      <h1 class="display">Von der Schulbank zum <span class="accent">Start-up</span>.</h1>
+      <p class="label" data-sbp="label">{ueberUns.label}</p>
+      <h1 class="display">
+        <span data-sbp="titel_1">{ueberUns.titel1}</span>
+        <span class="accent" data-sbp="titel_accent">{ueberUns.titelAccent}</span>.
+      </h1>
     </div>
   </header>
 
   <section class="section">
     <div class="container two-col">
       <div class="prose reveal">
-        <p>
-          Manche Freundschaften halten ein Leben lang – unsere gründete zusätzlich ein Unternehmen.
-          Alles begann im Klassenzimmer der Handelsmittelschule in Freiburg. Zwischen Hausaufgaben
-          und ersten Business-Cases merkten wir schnell: Die Chemie stimmt nicht nur beim
-          Mittagessen, sondern auch bei der Arbeit.
-        </p>
-        <p>
-          Schon damals haben wir unsere ersten unternehmerischen Projekte gestartet, Konzepte
-          entworfen und gelernt, dass vier Köpfe mehr erreichen als einer. Heute bündeln wir diese
-          Energie, um für lokale Unternehmen Webseiten und Online-Shops zu bauen, die keine Wünsche
-          offenlassen.
-        </p>
+        <p data-sbp="absatz_1">{ueberUns.absatz1}</p>
+        <p data-sbp="absatz_2">{ueberUns.absatz2}</p>
       </div>
       <div class="card-img reveal" style="aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;">
-        <img
-          src="https://framerusercontent.com/images/Xi0PUrr9lreKtboJJETLOTAsJg.webp?width=2048&height=1536"
-          alt="Das QOM-Team"
-        />
+        <img src={ueberUns.bild} alt="Das QOM-Team" data-sbp-img="bild" />
       </div>
     </div>
   </section>
@@ -44,8 +34,8 @@ import { team } from "../data/content.js";
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <p class="label">Unser Team</p>
-          <h2 class="h2">Vier Köpfe. Ein Ziel.</h2>
+          <p class="label" data-sbp="team_label">{ueberUns.teamLabel}</p>
+          <h2 class="h2" data-sbp="team_titel">{ueberUns.teamTitel}</h2>
         </div>
       </div>
       <div class="team-grid">

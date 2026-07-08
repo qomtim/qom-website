@@ -5,7 +5,7 @@
 // Idempotent: kann gefahrlos mehrfach laufen (aktualisiert statt dupliziert).
 // ============================================================
 
-import { site, services, cases, team, regio, quotes, stats, faqCommon, hero, about } from "../src/data/site.js";
+import { site, services, cases, team, regio, quotes, stats, faqCommon, hero, about, ueberUns, impressum, datenschutz } from "../src/data/site.js";
 
 const SPACE = (process.env.STORYBLOK_SPACE_ID || "").trim();
 const TOKEN = (process.env.STORYBLOK_MANAGEMENT_TOKEN || "").trim();
@@ -150,6 +150,52 @@ const components = [
     },
   },
   {
+    name: "page_ueber_uns",
+    display_name: "Seite: Über uns",
+    is_root: true,
+    is_nestable: false,
+    schema: {
+      label: textField("Überzeile", 0),
+      titel_1: textField("Titel (normal)", 1),
+      titel_accent: textField("Titel (farbig)", 2),
+      absatz_1: areaField("Absatz 1", 3),
+      absatz_2: areaField("Absatz 2", 4),
+      bild: textField("Bild-URL", 5),
+      team_label: textField("Team: Überzeile", 6),
+      team_titel: textField("Team: Titel", 7),
+    },
+  },
+  {
+    name: "page_impressum",
+    display_name: "Seite: Impressum",
+    is_root: true,
+    is_nestable: false,
+    schema: {
+      adresse: areaField("Kontaktadresse (Zeilen per Enter)", 0),
+      personen: textField("Vertretungsberechtigte Personen", 1),
+      register: areaField("Handelsregister / UID", 2),
+      haftung: areaField("Haftungsausschluss", 3),
+      urheber: areaField("Urheberrechte", 4),
+    },
+  },
+  {
+    name: "page_datenschutz",
+    display_name: "Seite: Datenschutz",
+    is_root: true,
+    is_nestable: false,
+    schema: {
+      verantwortlich: areaField("1. Verantwortliche Stelle", 0),
+      erhebung: areaField("2. Erhebung von Personendaten", 1),
+      terminbuchung: areaField("3. Terminbuchung", 2),
+      hosting: areaField("4. Hosting", 3),
+      cookies: areaField("5. Cookies und Analyse", 4),
+      weitergabe: areaField("6. Weitergabe an Dritte", 5),
+      rechte: areaField("7. Ihre Rechte", 6),
+      aenderungen: areaField("8. Änderungen", 7),
+      stand: textField("Stand (z.B. Juli 2026)", 8),
+    },
+  },
+  {
     name: "site",
     display_name: "Website-Inhalte",
     is_root: true,
@@ -236,22 +282,35 @@ const storyContent = {
   faq: faqCommon.map((f) => b("faq_item", { question: f.q, answer: f.a })),
 };
 
-async function upsertStory() {
-  const found = await api("GET", "/stories/?with_slug=site");
+// Legt eine Story NUR an, wenn sie noch nicht existiert.
+// Bestehende Stories werden NIE überschrieben (schützt Tims Änderungen).
+async function ensureStory(slug, name, content, path) {
+  const found = await api("GET", `/stories/?with_slug=${slug}`);
   const existing = found.json?.stories?.[0];
-  const payload = { story: { name: "Website-Inhalte", slug: "site", content: storyContent }, publish: 1 };
-
   if (existing) {
-    const r = await api("PUT", `/stories/${existing.id}`, payload);
-    console.log(`Story aktualisiert (${r.status})`);
-    if (!r.ok) { console.error(r.text); process.exit(1); }
-  } else {
-    const r = await api("POST", "/stories", payload);
-    console.log(`Story erstellt (${r.status})`);
-    if (!r.ok) { console.error(r.text); process.exit(1); }
+    console.log(`Story "${slug}" existiert bereits – bleibt unverändert.`);
+    return;
   }
+  const payload = { story: { name, slug, content, path }, publish: 1 };
+  const r = await api("POST", "/stories", payload);
+  console.log(`Story "${slug}" erstellt (${r.status})`);
+  if (!r.ok) { console.error(r.text?.slice(0, 400)); process.exit(1); }
+  await wait(400);
 }
 
 await upsertComponents();
-await upsertStory();
+await ensureStory("site", "Website-Inhalte", storyContent, "/");
+await ensureStory("ueber-uns", "Seite: Über uns", {
+  component: "page_ueber_uns",
+  label: ueberUns.label,
+  titel_1: ueberUns.titel1,
+  titel_accent: ueberUns.titelAccent,
+  absatz_1: ueberUns.absatz1,
+  absatz_2: ueberUns.absatz2,
+  bild: ueberUns.bild,
+  team_label: ueberUns.teamLabel,
+  team_titel: ueberUns.teamTitel,
+}, "/ueber-uns");
+await ensureStory("impressum", "Seite: Impressum", { component: "page_impressum", ...impressum }, "/impressum");
+await ensureStory("datenschutz", "Seite: Datenschutz", { component: "page_datenschutz", ...datenschutz }, "/datenschutz");
 console.log("✅ Storyblok-Setup abgeschlossen. Inhalte sind unter app.storyblok.com bearbeitbar.");

@@ -1,47 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { site } from "../data/content.js";
+import { impressum } from "../data/content.js";
 ---
 
 <Layout title="Impressum | QOM – Quit Ordinary Marketing" noindex={true}>
   <section class="legal">
     <div class="container">
       <h1 class="h2" style="margin-bottom: 30px;">Impressum</h1>
-      <div class="notice">
-        ⚠️ Entwurf – bitte prüfen und ergänzen: Rechtsform, vollständige Adresse und ggf.
-        UID-Nummer waren im Framer-Entwurf noch nicht hinterlegt.
-      </div>
       <div class="prose">
         <h2>Kontaktadresse</h2>
-        <p>
-          QOM – Quit Ordinary Marketing<br />
-          [Strasse und Hausnummer – BITTE ERGÄNZEN]<br />
-          [PLZ] Bösingen<br />
-          Schweiz
-        </p>
-        <p>
-          E-Mail: {site.email}<br />
-          Telefon: {site.phone}
-        </p>
+        <p class="pre-line" data-sbp="adresse">{impressum.adresse}</p>
         <h2>Vertretungsberechtigte Personen</h2>
-        <p>Tim Waeber, Ilies Chamakh, Patrice Von Arx, Andrej Bauer</p>
+        <p data-sbp="personen">{impressum.personen}</p>
         <h2>Handelsregistereintrag / UID</h2>
-        <p>[Rechtsform und UID-Nummer – BITTE ERGÄNZEN, sofern vorhanden]</p>
+        <p class="pre-line" data-sbp="register">{impressum.register}</p>
         <h2>Haftungsausschluss</h2>
-        <p>
-          Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität,
-          Zuverlässigkeit und Vollständigkeit der Informationen. Haftungsansprüche gegen den Autor
-          wegen Schäden materieller oder immaterieller Art, die aus dem Zugriff oder der Nutzung
-          bzw. Nichtnutzung der veröffentlichten Informationen entstanden sind, werden
-          ausgeschlossen.
-        </p>
+        <p data-sbp="haftung">{impressum.haftung}</p>
         <h2>Urheberrechte</h2>
-        <p>
-          Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf
-          dieser Website gehören ausschliesslich QOM – Quit Ordinary Marketing oder den speziell
-          genannten Rechtsinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche
-          Zustimmung der Urheberrechtsträger im Voraus einzuholen.
-        </p>
+        <p data-sbp="urheber">{impressum.urheber}</p>
       </div>
     </div>
   </section>

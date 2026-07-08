@@ -612,6 +612,9 @@ h1, h2, h3, h4, h5 {
 .prose { max-width: 72ch; color: var(--muted); display: flex; flex-direction: column; gap: 18px; }
 .prose b, .prose strong { color: var(--text); }
 
+/* Zeilenumbrüche aus Storyblok-Textfeldern übernehmen */
+.pre-line { white-space: pre-line; }
+
 /* ---------- Footer ---------- */
 
 footer { border-top: 1px solid var(--line); padding: 70px 0 40px; margin-top: 40px; }

@@ -13,6 +13,11 @@
   if (!meta || !meta.content) return;
   var token = meta.content;
 
+  // Welche Seiten-Story gehört zu dieser URL? (die "site"-Story gilt überall)
+  var pageSlugs = { "/ueber-uns": "ueber-uns", "/impressum": "impressum", "/datenschutz": "datenschutz" };
+  var pfad = window.location.pathname.replace(/\/$/, "") || "/";
+  var pageSlug = pageSlugs[pfad] || null;
+
   // --- Einfache Felder: <el data-sb="feldname"> / <img data-sb-img="feldname"> ---
   function setScalars(c) {
     document.querySelectorAll("[data-sb]").forEach(function (el) {
@@ -66,20 +71,43 @@
     });
   }
 
-  function apply(content) {
-    if (!content) return;
-    setScalars(content);
-    setBloks(content);
+  // Seiten-Story-Felder: <el data-sbp="feldname"> / <img data-sbp-img="feldname">
+  function setPageScalars(c) {
+    document.querySelectorAll("[data-sbp]").forEach(function (el) {
+      var v = c[el.getAttribute("data-sbp")];
+      if (v !== undefined && v !== null && v !== "") el.textContent = v;
+    });
+    document.querySelectorAll("[data-sbp-img]").forEach(function (el) {
+      var v = c[el.getAttribute("data-sbp-img")];
+      if (v) el.src = v;
+    });
   }
 
-  // 1) Entwurfs-Stand laden und anwenden
-  fetch(
-    "https://api.storyblok.com/v2/cdn/stories/site?version=draft&token=" +
-      token + "&cv=" + Date.now()
-  )
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      if (d && d.story) apply(d.story.content);
+  function apply(content, slug) {
+    if (!content) return;
+    if (slug && slug !== "site") {
+      setPageScalars(content);
+    } else {
+      setScalars(content);
+      setBloks(content);
+    }
+  }
+
+  function fetchDraft(slug) {
+    return fetch(
+      "https://api.storyblok.com/v2/cdn/stories/" + slug +
+        "?version=draft&token=" + token + "&cv=" + Date.now()
+    )
+      .then(function (r) { return r.json(); })
+      .then(function (d) { return d && d.story ? d.story.content : null; })
+      .catch(function () { return null; });
+  }
+
+  // 1) Entwurfs-Stand laden und anwenden (site überall, plus Seiten-Story)
+  Promise.all([fetchDraft("site"), pageSlug ? fetchDraft(pageSlug) : Promise.resolve(null)])
+    .then(function (res) {
+      apply(res[0], "site");
+      if (res[1]) apply(res[1], pageSlug);
       loadBridge();
     })
     .catch(loadBridge);
@@ -91,7 +119,7 @@
     s.onload = function () {
       var bridge = new window.StoryblokBridge();
       bridge.on(["input"], function (e) {
-        if (e && e.story) apply(e.story.content);
+        if (e && e.story) apply(e.story.content, e.story.slug);
       });
       bridge.on(["published", "change"], function () {
         window.location.reload();

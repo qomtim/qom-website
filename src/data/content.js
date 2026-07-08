@@ -8,27 +8,32 @@
 
 import * as fb from "./site.js";
 
-async function fetchStoryblok() {
+async function fetchStory(slug) {
   const token = process.env.STORYBLOK_TOKEN;
   if (!token) return null;
   try {
     const res = await fetch(
-      `https://api.storyblok.com/v2/cdn/stories/site?version=published&token=${token}&cv=${Date.now()}`
+      `https://api.storyblok.com/v2/cdn/stories/${slug}?version=published&token=${token}&cv=${Date.now()}`
     );
     if (!res.ok) {
-      console.warn(`[content] Storyblok antwortet mit ${res.status} – nutze Fallback-Inhalte.`);
+      console.warn(`[content] Storyblok "${slug}" antwortet mit ${res.status} – nutze Fallback.`);
       return null;
     }
     const data = await res.json();
-    console.log("[content] Inhalte aus Storyblok geladen.");
+    console.log(`[content] Story "${slug}" aus Storyblok geladen.`);
     return data.story?.content ?? null;
   } catch (e) {
-    console.warn("[content] Storyblok nicht erreichbar – nutze Fallback-Inhalte.", e?.message);
+    console.warn(`[content] Storyblok "${slug}" nicht erreichbar – nutze Fallback.`, e?.message);
     return null;
   }
 }
 
-const c = await fetchStoryblok();
+const [c, uu, im, ds] = await Promise.all([
+  fetchStory("site"),
+  fetchStory("ueber-uns"),
+  fetchStory("impressum"),
+  fetchStory("datenschutz"),
+]);
 
 // Hilfsfunktion: Storyblok-Wert nur nehmen, wenn er nicht leer ist
 const pick = (v, fallback) => (v !== undefined && v !== null && v !== "" ? v : fallback);
@@ -89,3 +94,36 @@ export const stats = c?.stats?.length
 export const faqCommon = c?.faq?.length
   ? c.faq.map((f) => ({ q: f.question, a: f.answer, uid: f._uid }))
   : fb.faqCommon;
+
+// ---------- Unterseiten ----------
+
+export const ueberUns = {
+  label: pick(uu?.label, fb.ueberUns.label),
+  titel1: pick(uu?.titel_1, fb.ueberUns.titel1),
+  titelAccent: pick(uu?.titel_accent, fb.ueberUns.titelAccent),
+  absatz1: pick(uu?.absatz_1, fb.ueberUns.absatz1),
+  absatz2: pick(uu?.absatz_2, fb.ueberUns.absatz2),
+  bild: pick(uu?.bild, fb.ueberUns.bild),
+  teamLabel: pick(uu?.team_label, fb.ueberUns.teamLabel),
+  teamTitel: pick(uu?.team_titel, fb.ueberUns.teamTitel),
+};
+
+export const impressum = {
+  adresse: pick(im?.adresse, fb.impressum.adresse),
+  personen: pick(im?.personen, fb.impressum.personen),
+  register: pick(im?.register, fb.impressum.register),
+  haftung: pick(im?.haftung, fb.impressum.haftung),
+  urheber: pick(im?.urheber, fb.impressum.urheber),
+};
+
+export const datenschutz = {
+  verantwortlich: pick(ds?.verantwortlich, fb.datenschutz.verantwortlich),
+  erhebung: pick(ds?.erhebung, fb.datenschutz.erhebung),
+  terminbuchung: pick(ds?.terminbuchung, fb.datenschutz.terminbuchung),
+  hosting: pick(ds?.hosting, fb.datenschutz.hosting),
+  cookies: pick(ds?.cookies, fb.datenschutz.cookies),
+  weitergabe: pick(ds?.weitergabe, fb.datenschutz.weitergabe),
+  rechte: pick(ds?.rechte, fb.datenschutz.rechte),
+  aenderungen: pick(ds?.aenderungen, fb.datenschutz.aenderungen),
+  stand: pick(ds?.stand, fb.datenschutz.stand),
+};
