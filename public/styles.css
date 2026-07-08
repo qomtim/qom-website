@@ -161,10 +161,10 @@ h1, h2, h3, h4, h5 {
 .logo span { color: var(--accent); }
 
 /* Bild-Logo (QOM) */
-.logo-img { height: 44px; width: auto; display: block; }
-.logo-img-footer { height: 52px; }
+.logo-img { height: 60px; width: auto; display: block; }
+.logo-img-footer { height: 76px; }
 @media (max-width: 720px) {
-  .logo-img { height: 36px; }
+  .logo-img { height: 48px; }
 }
 
 .nav-links {
