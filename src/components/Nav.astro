@@ -5,7 +5,9 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="logo" href="/">{site.shortName}<span>.</span></a>
+    <a class="logo" href="/" aria-label={site.name}>
+      <img class="logo-img" src={site.logoUrl} alt={site.name} data-sb-img="logo_url" />
+    </a>
     <ul class="nav-links">
       {
         nav.map((item) => (

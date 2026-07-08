@@ -15,6 +15,7 @@ export const site = {
   bookingLabel: "Erstgespräch buchen",
   city: "Bösingen",
   year: 2026,
+  logoUrl: "https://a.storyblok.com/f/293696830911464/4096x2304/8faf9a7134/qom-logo-transparent-1.png",
 };
 
 export const hero = {

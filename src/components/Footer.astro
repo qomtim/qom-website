@@ -6,7 +6,9 @@ import { site, nav } from "../data/content.js";
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col">
-        <a class="logo" href="/">{site.shortName}<span>.</span></a>
+        <a class="logo" href="/" aria-label={site.name}>
+          <img class="logo-img logo-img-footer" src={site.logoUrl} alt={site.name} />
+        </a>
         <p style="color: var(--muted); max-width: 32ch; margin-top: 14px;">
           Quit Ordinary Marketing – {site.claim}
         </p>

@@ -217,6 +217,7 @@ const components = [
       booking_url: textField("Buchungs-Link (TidyCal)", 13),
       booking_label: textField("Buchungs-Button-Text", 14),
       city: textField("Ort", 15),
+      logo_url: textField("Logo-URL (transparent, helle Variante)", 16),
       stats: bloksField("Kennzahlen", ["stat"], 16),
       services: bloksField("Dienstleistungen", ["service"], 17),
       cases: bloksField("Case Studies", ["case_study"], 18),

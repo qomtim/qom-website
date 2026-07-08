@@ -47,6 +47,7 @@ export const site = {
   bookingUrl: pick(c?.booking_url, fb.site.bookingUrl),
   bookingLabel: pick(c?.booking_label, fb.site.bookingLabel),
   city: pick(c?.city, fb.site.city),
+  logoUrl: pick(c?.logo_url, fb.site.logoUrl),
 };
 
 export const hero = {
