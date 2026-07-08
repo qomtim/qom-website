@@ -33,9 +33,9 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
     </div>
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        Webdesign <b>·</b> Online-Shops <b>·</b> Social Media Kampagnen <b>·</b> Regional verankert
-        <b>·</b> Schweizer Hosting <b>·</b> Webdesign <b>·</b> Online-Shops <b>·</b> Social Media
-        Kampagnen <b>·</b> Regional verankert <b>·</b> Schweizer Hosting <b>·</b>
+        {[1, 2, 3, 4].map(() => (
+          <>Webdesign <b>·</b> Online-Shops <b>·</b> Social Media Kampagnen <b>·</b> Regional verankert <b>·</b> Schweizer Hosting <b>·</b>{" "}</>
+        ))}
       </div>
     </div>
   </header>

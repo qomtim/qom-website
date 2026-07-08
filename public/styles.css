@@ -168,6 +168,9 @@ h1, h2, h3, h4, h5 {
   transition: color 0.2s;
 }
 
+/* Buchen-Button in der Navigation: immer weisse Schrift */
+.nav-links a.btn-primary, .nav-links a.btn-primary:hover { color: #fff; }
+
 .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
 .btn {
