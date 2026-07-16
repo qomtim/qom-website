@@ -184,7 +184,6 @@ export const impressum = {
   adresse:
     "QOM – Quit Ordinary Marketing\n[Strasse und Hausnummer – BITTE ERGÄNZEN]\n[PLZ] Bösingen\nSchweiz",
   personen: "Tim Waeber, Ilies Chamakh, Patrice Von Arx, Andrej Bauer",
-  register: "[Rechtsform und UID-Nummer – BITTE ERGÄNZEN, sofern vorhanden]",
   haftung:
     "Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen. Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, die aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen entstanden sind, werden ausgeschlossen.",
   urheber:
@@ -200,8 +199,6 @@ export const datenschutz = {
     "Für die Online-Terminbuchung nutzen wir TidyCal. Bei einer Buchung werden die von Ihnen angegebenen Daten (Name, E-Mail-Adresse, gewählter Termin) an TidyCal übermittelt. Es gilt zusätzlich die Datenschutzerklärung von TidyCal.",
   hosting:
     "Diese Website wird bei Infomaniak in der Schweiz gehostet. Beim Besuch der Website werden technisch notwendige Daten (IP-Adresse, Datum und Uhrzeit des Zugriffs, Browsertyp) in Server-Logfiles gespeichert. Diese Daten verbleiben in der Schweiz.",
-  cookies:
-    "[BITTE BESTÄTIGEN: Setzt ihr Analytics/Tracking ein? Falls ja, hier den Dienst und die Rechtsgrundlage ergänzen. Falls nein, kann dieser Abschnitt entsprechend kurz gehalten werden.]",
   weitergabe:
     "Wir geben Personendaten nur weiter, wenn dies zur Vertragserfüllung notwendig ist, wir gesetzlich dazu verpflichtet sind oder Sie eingewilligt haben.",
   rechte:

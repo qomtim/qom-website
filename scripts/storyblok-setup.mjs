@@ -173,9 +173,8 @@ const components = [
     schema: {
       adresse: areaField("Kontaktadresse (Zeilen per Enter)", 0),
       personen: textField("Vertretungsberechtigte Personen", 1),
-      register: areaField("Handelsregister / UID", 2),
-      haftung: areaField("Haftungsausschluss", 3),
-      urheber: areaField("Urheberrechte", 4),
+      haftung: areaField("Haftungsausschluss", 2),
+      urheber: areaField("Urheberrechte", 3),
     },
   },
   {
@@ -188,11 +187,10 @@ const components = [
       erhebung: areaField("2. Erhebung von Personendaten", 1),
       terminbuchung: areaField("3. Terminbuchung", 2),
       hosting: areaField("4. Hosting", 3),
-      cookies: areaField("5. Cookies und Analyse", 4),
-      weitergabe: areaField("6. Weitergabe an Dritte", 5),
-      rechte: areaField("7. Ihre Rechte", 6),
-      aenderungen: areaField("8. Änderungen", 7),
-      stand: textField("Stand (z.B. Juli 2026)", 8),
+      weitergabe: areaField("5. Weitergabe an Dritte", 4),
+      rechte: areaField("6. Ihre Rechte", 5),
+      aenderungen: areaField("7. Änderungen", 6),
+      stand: textField("Stand (z.B. Juli 2026)", 7),
     },
   },
   {

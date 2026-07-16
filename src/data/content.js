@@ -112,7 +112,6 @@ export const ueberUns = {
 export const impressum = {
   adresse: pick(im?.adresse, fb.impressum.adresse),
   personen: pick(im?.personen, fb.impressum.personen),
-  register: pick(im?.register, fb.impressum.register),
   haftung: pick(im?.haftung, fb.impressum.haftung),
   urheber: pick(im?.urheber, fb.impressum.urheber),
 };
@@ -122,7 +121,6 @@ export const datenschutz = {
   erhebung: pick(ds?.erhebung, fb.datenschutz.erhebung),
   terminbuchung: pick(ds?.terminbuchung, fb.datenschutz.terminbuchung),
   hosting: pick(ds?.hosting, fb.datenschutz.hosting),
-  cookies: pick(ds?.cookies, fb.datenschutz.cookies),
   weitergabe: pick(ds?.weitergabe, fb.datenschutz.weitergabe),
   rechte: pick(ds?.rechte, fb.datenschutz.rechte),
   aenderungen: pick(ds?.aenderungen, fb.datenschutz.aenderungen),
