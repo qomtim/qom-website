@@ -55,18 +55,39 @@ document.querySelectorAll(".faq-q").forEach((btn) => {
 });
 
 // ---------- Scroll-Reveal ----------
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add("visible");
-        observer.unobserve(e.target);
-      }
+const revealElemente = () => document.querySelectorAll(".reveal, .img-reveal");
+
+if (!("IntersectionObserver" in window)) {
+  // Sehr alter Browser: einfach alles anzeigen statt nichts.
+  revealElemente().forEach((el) => el.classList.add("visible"));
+} else {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          observer.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  revealElemente().forEach((el) => observer.observe(el));
+
+  // Sicherheitsnetz: Wird die Seite in einem Hintergrund-Tab geladen, meldet der
+  // Beobachter nichts – dann blieben sichtbare Inhalte unsichtbar. Darum alles,
+  // was im Fenster liegt, nachträglich anzeigen.
+  const nachtragen = () => {
+    document.querySelectorAll(".reveal:not(.visible), .img-reveal:not(.visible)").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9 && r.bottom > 0) el.classList.add("visible");
     });
-  },
-  { threshold: 0.12 }
-);
-document.querySelectorAll(".reveal, .img-reveal").forEach((el) => observer.observe(el));
+  };
+  window.addEventListener("load", () => setTimeout(nachtragen, 300));
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") setTimeout(nachtragen, 100);
+  });
+}
 
 // ---------- Zähler-Animation ----------
 const counterObs = new IntersectionObserver((entries) => {

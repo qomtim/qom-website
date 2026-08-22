@@ -252,7 +252,13 @@ h1, h2, h3, h4, h5 {
   border: 1px solid var(--line);
 }
 
-.hero-img img { width: 100%; height: clamp(260px, 46vw, 540px); object-fit: cover; }
+.hero-img img {
+  width: 100%;
+  height: clamp(260px, 46vw, 540px);
+  object-fit: cover;
+  /* Freigestelltes Teambild: Zuschnitt oben ansetzen, damit die Koepfe nie abgeschnitten werden */
+  object-position: center 20%;
+}
 
 /* Bild-Reveal per Clip-Path */
 .img-reveal { clip-path: inset(0 0 100% 0); transition: clip-path 1s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -669,6 +675,11 @@ footer { border-top: 1px solid var(--line); padding: 70px 0 40px; margin-top: 40
 
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* Sicherheitsnetz: ohne JavaScript wird nichts versteckt (die Klasse "js"
+   setzt das Skript im Kopf der Seite). Sonst bliebe die Seite leer. */
+html:not(.js) .reveal { opacity: 1; transform: none; }
+html:not(.js) .img-reveal { clip-path: none; }
 
 .cards-2 > .reveal:nth-child(2), .cards-3 > .reveal:nth-child(2), .team-grid > .reveal:nth-child(2), .regio-grid > .reveal:nth-child(2) { transition-delay: 0.1s; }
 .cards-3 > .reveal:nth-child(3), .team-grid > .reveal:nth-child(3), .regio-grid > .reveal:nth-child(3) { transition-delay: 0.2s; }

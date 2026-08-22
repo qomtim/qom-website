@@ -27,7 +27,9 @@ import { site, services, cases, regio, quotes, stats, hero, about } from "../dat
           <a class="btn btn-ghost btn-lg" href="/projekte">Unsere Arbeiten</a>
         </div>
       </div>
-      <div class="hero-img img-reveal">
+      {/* Bewusst OHNE "img-reveal": Das Hero-Bild ist das erste Bild der Seite und
+          muss immer sofort sichtbar sein – es darf nicht von JavaScript abhaengen. */}
+      <div class="hero-img">
         <img src={hero.image} alt="Das QOM-Team bei der Arbeit" loading="eager" data-sb-img="hero_image" />
       </div>
     </div>

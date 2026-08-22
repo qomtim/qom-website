@@ -29,6 +29,9 @@ const sbPreviewToken = process.env.STORYBLOK_TOKEN || "";
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <!-- Markiert: JavaScript ist da. Ohne dieses Merkmal zeigt die
+         Gestaltung alle Inhalte sofort an (nichts bleibt unsichtbar). -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
     {sbPreviewToken && <meta name="sb-preview-token" content={sbPreviewToken} />}
   </head>
   <body>
