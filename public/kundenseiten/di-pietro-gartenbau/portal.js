@@ -349,6 +349,11 @@
       '.qom-mosaik{display:grid;gap:14px;grid-auto-rows:170px;grid-auto-flow:dense}',
       '.qom-mosaik img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}',
       '.qom-mosaik.qom-hero img:first-child{grid-column:span 2;grid-row:span 2}',
+      // Ohne grosses erstes Bild: Kacheln nach Seitenverhaeltnis statt fester
+      // Zeilenhoehe. Sonst werden bei wenigen Bildern flache Streifen daraus
+      // (zwei Bilder auf 1152 px Breite waren nur 170 px hoch).
+      '.qom-mosaik:not(.qom-hero){grid-auto-rows:auto}',
+      '.qom-mosaik:not(.qom-hero) img{height:auto;aspect-ratio:4/3}',
       '.qom-mosaik .qom-nur-handy{display:none}',
       '.qom-mosaik-kopf{text-align:center;margin-bottom:34px}',
       '.qom-mosaik-kopf p{margin:14px auto 0;max-width:62ch}',

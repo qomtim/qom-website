@@ -192,3 +192,19 @@ p{font-size:1.05rem}
   .qom-bilder-verschoben .detail > .detail-imgs,
   .qom-bilder-verschoben .detail > img:first-child { display: none; }
 }
+
+
+/* --- Feinschliff Leistungsseiten --- */
+
+/* Die zwei Bilder oben waren unterschiedlich hoch (348 zu 198 px) und der
+   untere Rand dadurch zackig. Gleiches Seitenverhaeltnis -> gleiche Hoehe. */
+.detail-imgs img { aspect-ratio: 4 / 3; height: 100%; object-fit: cover; }
+
+/* Ist das Bild leer oder ausgeblendet, blieb seine Spalte als grosse Luecke
+   stehen (Tiefbauarbeiten). Dann auf eine Spalte umstellen. */
+.detail:has(> img[data-qom-aus]) { grid-template-columns: 1fr; }
+.detail:has(> .detail-imgs[data-qom-aus]) { grid-template-columns: 1fr; }
+
+/* Ueber die volle Breite waeren es fast 180 Zeichen pro Zeile - unlesbar. */
+.detail:has(> img[data-qom-aus]) > p,
+.detail:has(> img[data-qom-aus]) > div { max-width: 68ch; }
