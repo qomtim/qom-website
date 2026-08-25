@@ -245,19 +245,21 @@ h1, h2, h3, h4, h5 {
 
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
 
+/* Kein Rahmen, kein Kasten: Das Teambild ist freigestellt und soll frei
+   auf dem Hintergrund stehen. */
 .hero-img {
-  margin-top: 70px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--line);
+  margin-top: 56px;
 }
 
 .hero-img img {
+  /* Ganzes Bild zeigen statt zuschneiden - beim freigestellten Teambild gibt
+     es nichts abzuschneiden, und angeschnittene Koepfe kann es so nicht mehr
+     geben. */
+  display: block;
   width: 100%;
-  height: clamp(260px, 46vw, 540px);
-  object-fit: cover;
-  /* Freigestelltes Teambild: Zuschnitt oben ansetzen, damit die Koepfe nie abgeschnitten werden */
-  object-position: center 20%;
+  height: clamp(320px, 44vw, 620px);
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 /* Bild-Reveal per Clip-Path */
@@ -746,7 +748,7 @@ html:not(.js) .img-reveal { clip-path: none; }
 
   .hero { padding: 120px 0 40px; }
   .hero-img { margin-top: 44px; }
-  .hero-img img { height: 240px; }
+  .hero-img img { height: clamp(240px, 62vw, 340px); }
   .hero-cta { width: 100%; }
   .hero-cta .btn { width: 100%; justify-content: center; }
   .marquee { margin-top: 48px; padding: 13px 0; }
