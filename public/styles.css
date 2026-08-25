@@ -272,7 +272,9 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
   border-block: 1px solid var(--line);
   padding: 18px 0;
-  margin-top: 80px;
+  /* Direkt an die Unterkante des Teambildes anschliessen - ein Abstand dazwischen
+     liess das freigestellte Bild wie abgeschnitten wirken. */
+  margin-top: 0;
   white-space: nowrap;
 }
 
@@ -751,7 +753,7 @@ html:not(.js) .img-reveal { clip-path: none; }
   .hero-img img { height: clamp(240px, 62vw, 340px); }
   .hero-cta { width: 100%; }
   .hero-cta .btn { width: 100%; justify-content: center; }
-  .marquee { margin-top: 48px; padding: 13px 0; }
+  .marquee { margin-top: 0; padding: 13px 0; }
   .marquee-track { font-size: 0.9rem; }
 
   .section { padding: 64px 0; }
