@@ -6,12 +6,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
-  # Wird von n8n ausgelöst, wenn in Storyblok publiziert wird
-  repository_dispatch:
-    types: [storyblok-publish]
-  schedule:
-    # Jede Nacht um 03:15 UTC neu bauen – holt die neusten Storyblok-Inhalte
-    - cron: "15 3 * * *"
 
 jobs:
   build-and-deploy:
@@ -29,9 +23,7 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Seite bauen (Inhalte aus Storyblok, mit Fallback)
-        env:
-          STORYBLOK_TOKEN: ${{ secrets.STORYBLOK_TOKEN }}
+      - name: Seite bauen
         run: npm run build
 
       - name: Per FTP zu Infomaniak hochladen (findet Zielordner selbst)

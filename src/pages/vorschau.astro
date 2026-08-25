@@ -1,0 +1,242 @@
+---
+// ============================================================
+// DESIGN-VORSCHAU – 1:1 die heutige Startseite, nur mit
+//   (a) dem neuen Hintergrund (Aurora + Raster)
+//   (b) den Dienstleistungen als Scroll-Ablauf ("Steps")
+// Inhalt, Texte, Reihenfolge und Abschnitte bleiben unveraendert.
+// ============================================================
+import Layout from "../layouts/Layout.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { site, services, cases, regio, quotes, stats, hero, about } from "../data/content.js";
+import "../styles/vorschau-extra.css";
+
+// Die aktuell live verwendeten Bilder, damit die Vorschau echt aussieht.
+const liveBild = {
+  hero: "https://a.storyblok.com/f/293696830911464/1350x1080/ac20a241b7/qom-teambild.png",
+  about: "https://a.storyblok.com/f/293696830911464/1254x1254/1e8d02917d/qom-teambildkalender.avif",
+  dienst: [
+    "https://a.storyblok.com/f/293696830911464/3006x1656/d7f094ffe7/qom-ilieswebdesign.png",
+    "https://a.storyblok.com/f/293696830911464/2048x1365/bc351716d2/qom-shopifybag.avif",
+    "https://a.storyblok.com/f/293696830911464/512x341/bfc374a51a/qom-tim-admanager.avif",
+  ],
+  regio: [
+    "https://a.storyblok.com/f/293696830911464/1920x1080/81fe96fb05/kmulogo.png",
+    "https://a.storyblok.com/f/293696830911464/1920x1080/17b0ce3af6/jcilogo.png",
+    "https://a.storyblok.com/f/293696830911464/1920x1080/76610937ac/shopifyaward.png",
+    "https://a.storyblok.com/f/293696830911464/1920x1080/e3225e0a9e/regional.png",
+  ],
+};
+---
+
+<Layout
+  title="Design-Vorschau · QOM"
+  description="Interne Design-Vorschau."
+  noindex={true}
+>
+  {/* Neuer Hintergrund: driftende Lichtschleier + feines Raster */}
+  <div class="raum" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+  <div class="raster" aria-hidden="true"></div>
+  <div class="vorschau-marke">Design-Vorschau · nicht live</div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-blob" aria-hidden="true"></div>
+    <div class="container">
+      <p class="label" data-sb="hero_label">{hero.label}</p>
+      <h1 class="display">
+        <span class="line-reveal"><span data-sb="hero_title_1">{hero.title1}</span></span>
+        <span class="line-reveal"><span><span class="accent" data-sb="hero_title_accent">{hero.titleAccent}</span></span></span>
+        <span class="line-reveal"><span data-sb="hero_title_2">{hero.title2}</span></span>
+      </h1>
+      <div class="hero-row">
+        <p class="lead" data-sb="hero_lead">{hero.lead}</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href={site.bookingUrl} target="_blank" rel="noopener">
+            Erstgespräch mit Tim buchen
+          </a>
+          <a class="btn btn-ghost btn-lg" href="/projekte">Unsere Arbeiten</a>
+        </div>
+      </div>
+      {/* Bewusst OHNE "img-reveal": Das Hero-Bild ist das erste Bild der Seite und
+          muss immer sofort sichtbar sein – es darf nicht von JavaScript abhaengen. */}
+      <div class="hero-img">
+        <img src={liveBild.hero} alt="Das QOM-Team bei der Arbeit" loading="eager" data-sb-img="hero_image" />
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        {[1, 2, 3, 4].map(() => (
+          <>Webdesign <b>·</b> Online-Shops <b>·</b> Social Media Kampagnen <b>·</b> Regional verankert <b>·</b> Schweizer Hosting <b>·</b>{" "}</>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <!-- Zahlen -->
+  <section class="container">
+    <div class="stats">
+      {
+        stats.map((s) => (
+          <div class="stat reveal" data-sb-uid={s.uid}>
+            <span class="num" data-count={s.value} data-suffix={s.suffix}>
+              0
+            </span>
+            <p data-sb-f="label">{s.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Über uns Teaser -->
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <p class="label">Über uns</p>
+        <h2 class="h2" data-sb="about_title">{about.title}</h2>
+        <div class="prose" style="margin-top: 24px;">
+          <p data-sb="about_text">{about.text}</p>
+        </div>
+        <div style="margin-top: 30px;">
+          <a class="btn btn-ghost" href="/ueber-uns">Mehr erfahren</a>
+        </div>
+      </div>
+      <div class="card-img reveal" style="aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;">
+        <img src={liveBild.about} alt="QOM – Quit Ordinary Marketing" data-sb-img="about_image" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Dienstleistungen: als Scroll-Ablauf ("Steps"). Gleiche Texte, gleiche Reihenfolge. -->
+  <section class="section stufen-abschnitt" id="dienstleistungen">
+    <div class="stufen" data-aktiv="0">
+      <div class="stufen-buehne">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="label">Dienstleistungen</p>
+              <h2 class="h2">Unsere Lösungen für Ihr Wachstum</h2>
+            </div>
+          </div>
+          <div class="stufen-raster">
+          <div class="stufen-text">
+            <ol class="stufen-schiene">
+              <span class="stufen-fortschritt" aria-hidden="true"></span>
+              {services.map((s, i) => (
+                <li data-punkt={i}><b></b><span>{s.num}</span></li>
+              ))}
+            </ol>
+            <div class="stufen-karten">
+              {services.map((s, i) => (
+                <article class="stufe" data-stufe={i} data-sb-uid={s.uid}>
+                  <h3 class="h3" data-sb-f="title">{s.title}</h3>
+                  <p data-sb-f="teaser">{s.teaser}</p>
+                  <a class="card-link" href={`/${s.slug}`}>Mehr erfahren →</a>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div class="stufen-bilder">
+            {services.map((s, i) => (
+              <div class="stufen-bild" data-stufe={i}>
+                <img src={liveBild.dienst[i]} alt={s.title} loading="eager" />
+              </div>
+            ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Case Studies</p>
+          <h2 class="h2">Gemeinsame Erfolge</h2>
+        </div>
+        <a class="btn btn-ghost" href="/projekte">Alle Case Studies ansehen</a>
+      </div>
+      <div class="cards-2">
+        {
+          cases.map((c) => (
+            <a class="card reveal" href={c.url} target="_blank" rel="noopener" data-sb-uid={c.uid}>
+              <div class="card-img">
+                <img src={c.image} alt={`Webseite ${c.title}`} loading="lazy" data-sb-f-img="image" />
+              </div>
+              <span class="tag" data-sb-f="tag">{c.tag}</span>
+              <h3 class="h3" data-sb-f="title">{c.title}</h3>
+              <p data-sb-f="text">{c.text}</p>
+              <span class="card-link" data-sb-f="link_label">{c.linkLabel}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional verankert -->
+  <section class="regio-section" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="container">
+      <div class="reveal">
+        <p class="label">Regional verankert</p>
+        <h2 class="h2">Nicht nur digital unterwegs.</h2>
+        <p class="lead" style="margin-top: 20px;">
+          Wir sind auch persönlich in der Region präsent – vernetzt, engagiert und nahe am lokalen
+          Wirtschaftsraum.
+        </p>
+      </div>
+      <div class="regio-grid">
+        {
+          regio.map((r, i) => (
+            <div class="regio-card reveal" data-sb-uid={r.uid}>
+              <div class="regio-img">
+                <img src={liveBild.regio[i]} alt={r.title} loading="lazy" data-sb-f-img="image" />
+              </div>
+              <div class="regio-body">
+                <h4 data-sb-f="title">{r.title}</h4>
+                <p data-sb-f="text">{r.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Referenzen -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="label">Referenzen</p>
+          <h2 class="h2">Das sagen unsere Kunden</h2>
+        </div>
+      </div>
+      <div class="cards-2">
+        {
+          quotes.map((q) => (
+            <div class="quote-card reveal" data-sb-uid={q.uid}>
+              <span class="stars">★★★★★</span>
+              <p data-sb-f="text">{q.text}</p>
+              <span class="who" data-sb-f="who">{q.who}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Bereit für digitales Wachstum?"
+    text="Sichern Sie sich jetzt Ihr unverbindliches Erstgespräch mit Tim und wählen Sie direkt Ihren Wunschtermin."
+  />
+
+  <script src="/vorschau-stufen.js" is:inline></script>
+</Layout>
