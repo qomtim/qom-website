@@ -249,6 +249,41 @@ h1, h2, h3, h4, h5 {
    auf dem Hintergrund stehen. */
 .hero-img {
   margin-top: 56px;
+  position: relative;
+}
+
+/* Schimmer hinter dem Team. Ohne ihn steht das freigestellte Bild auf einer
+   leeren dunklen Flaeche - der Schein gibt ihm Grund und Tiefe. */
+.hero-img::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(1320px, 118%);
+  height: 104%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse 46% 62% at 50% 58%, rgba(54, 169, 226, 0.42), transparent 72%),
+    radial-gradient(ellipse 78% 42% at 50% 92%, rgba(46, 124, 194, 0.40), transparent 74%),
+    radial-gradient(ellipse 100% 70% at 50% 70%, rgba(46, 124, 194, 0.16), transparent 76%);
+  filter: blur(38px);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroSchimmer 9s ease-in-out infinite alternate;
+}
+
+.hero-img img {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes heroSchimmer {
+  from { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  to   { opacity: 1;    transform: translateX(-50%) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-img::before { animation: none; }
 }
 
 .hero-img img {
