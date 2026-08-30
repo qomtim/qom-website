@@ -200,7 +200,13 @@
       // alle anderen Galerien werden Mosaik. Sobald das Feld gepflegt ist,
       // hat es Vorrang.
       var art = b.darstellung;
-      if (!art) art = (b.__sammlung === 'seite_referenzen') ? 'slider' : 'mosaik';
+      if (!art) {
+        // Ohne ausdrueckliche Einstellung entscheidet die Menge:
+        // bis drei Bilder ein Mosaik, ab vier ein laufender Streifen -
+        // sonst wird die Seite mit vielen Bildern sehr lang.
+        // Die Referenzen bleiben immer ein Streifen.
+        art = (b.__sammlung === 'seite_referenzen' || bilder.length > 3) ? 'slider' : 'mosaik';
+      }
 
       if (art === 'mosaik') {
         bildStilSicherstellen();
@@ -649,6 +655,19 @@
     : PORTAL + '/api/v1/projects/' + SLUG + '/content?token=' + encodeURIComponent(PUB_TOKEN);
 
   // Favicon aus dem Portal (im GF-Bereich hinterlegt) anwenden
+  // Liegt auf der Seite ein eigenes Favicon, wird es eingebunden - unabhaengig
+  // davon, ob das Portal eines liefert.
+  function faviconAusDateien() {
+    if (document.querySelector('link[rel~="icon"]')) return;
+    var i = document.createElement('link');
+    i.rel = 'icon'; i.type = 'image/png'; i.href = 'favicon-32.png';
+    document.head.appendChild(i);
+    var gross = document.createElement('link');
+    gross.rel = 'apple-touch-icon'; gross.href = 'favicon-180.png';
+    document.head.appendChild(gross);
+  }
+  faviconAusDateien();
+
   function faviconAnwenden(projekt) {
     var favUrl = projekt && projekt.favicon_url;
     if (!favUrl) return;
