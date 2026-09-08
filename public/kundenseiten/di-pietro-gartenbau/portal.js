@@ -360,7 +360,7 @@
       // (zwei Bilder auf 1152 px Breite waren nur 170 px hoch).
       '.qom-mosaik:not(.qom-hero){grid-auto-rows:auto}',
       '.qom-mosaik:not(.qom-hero) img{height:auto;aspect-ratio:4/3}',
-      '.qom-mosaik .qom-nur-handy{display:none}',
+      '.qom-nur-handy{display:none}',
       '.qom-mosaik-kopf{text-align:center;margin-bottom:34px}',
       '.qom-mosaik-kopf p{margin:14px auto 0;max-width:62ch}',
       // Kacheln mit Beschreibungstext: Text unter dem Bild statt darauf
@@ -377,7 +377,7 @@
       '  .qom-mosaik{grid-template-columns:1fr 1fr !important;grid-auto-rows:125px;gap:10px}',
       '  .qom-mosaik.qom-eins{grid-template-columns:1fr !important;grid-auto-rows:210px}',
       '  .qom-mosaik.qom-hero img:first-child{grid-column:span 2;grid-row:span 2}',
-      '  .qom-mosaik .qom-nur-handy{display:block}',
+      '  .qom-nur-handy{display:block}',
       '  .qom-kachel img{aspect-ratio:16/9}',
       '  .qom-kachel-text{padding:16px 18px 20px}',
       '}',
@@ -401,12 +401,16 @@
 
   // Auf Leistungsseiten stehen ein bis zwei Bilder ueber dem Text. Am Handy
   // sind sie ausgeblendet (style.css), weil sie den Text nach unten druecken.
-  // Damit sie trotzdem zu sehen sind, haengen wir sie dort unten ans Mosaik.
+  // Damit sie trotzdem zu sehen sind, haengen wir sie dort unten an die
+  // Galerie - egal ob die als Mosaik oder als laufender Streifen erscheint.
   // Auf dem Desktop bleiben diese Kopien unsichtbar - dort stehen die Bilder
   // ja bereits neben dem Text.
-  function seitenBilderAnsMosaik(container) {
-    var mosaik = container.querySelector('.qom-mosaik');
-    if (!mosaik || mosaik.getAttribute('data-qom-ergaenzt')) return;
+  function seitenBilderNachUnten(container) {
+    // Zielbereich ist das Mosaik - oder, bei mehr als drei Bildern, der
+    // laufende Streifen. Fehlte der Streifen hier, blieben die Bilder oben
+    // stehen und schoben den Text am Handy weit nach unten.
+    var ziel = container.querySelector('.qom-mosaik, .slide-track');
+    if (!ziel || ziel.getAttribute('data-qom-ergaenzt')) return;
     var detail = document.querySelector('.detail');
     if (!detail) return;
 
@@ -418,6 +422,14 @@
     } else if (quelle.tagName === 'IMG') {
       bilder = [quelle];
     }
+    if (!bilder.length) return;
+
+    // Bilder stehen VOR dem Text und unten gibt es eine Galerie: eine
+    // Leistungsseite. Das allein erlaubt der Gestaltung schon, den Weg vom
+    // Textende zu den Bildern am Handy zu kuerzen - auch dann, wenn kein
+    // einziges Bild wandert, weil das Feld im Portal leer ist (Tiefbau).
+    document.documentElement.classList.add('qom-leistungsseite');
+    bildStilSicherstellen();
 
     var angehaengt = 0;
     bilder.forEach(function (b) {
@@ -428,14 +440,15 @@
       kopie.alt = b.alt || '';
       kopie.loading = 'lazy';
       kopie.className = 'qom-nur-handy';
-      mosaik.appendChild(kopie);
+      ziel.appendChild(kopie);
       angehaengt++;
     });
     if (angehaengt) {
-      mosaik.setAttribute('data-qom-ergaenzt', '1');
+      ziel.setAttribute('data-qom-ergaenzt', '1');
       // Erst dieses Merkmal erlaubt der Gestaltung, die Bilder oben am Handy
-      // auszublenden. Gibt es kein Mosaik (oder laeuft dieses Skript nicht),
-      // bleiben sie stehen - lieber doppelt als verschwunden.
+      // auszublenden und den Weg zu ihnen zu verkuerzen. Gibt es unten keinen
+      // Platz (oder laeuft dieses Skript nicht), bleibt oben alles stehen -
+      // lieber doppelt als verschwunden.
       document.documentElement.classList.add('qom-bilder-verschoben');
     }
   }
@@ -471,7 +484,7 @@
         Array.prototype.forEach.call(container.children, function (el, i) {
           el.classList.add('qom-abstand-' + (abstaende[i] || 'normal'));
         });
-        seitenBilderAnsMosaik(container);
+        seitenBilderNachUnten(container);
         container.querySelectorAll('.slider').forEach(sliderStarten);
         vorschauKlickbarMachen(container, key, indexListe);
       }

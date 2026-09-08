@@ -191,6 +191,16 @@ p{font-size:1.05rem}
 @media (max-width: 720px) {
   .qom-bilder-verschoben .detail > .detail-imgs,
   .qom-bilder-verschoben .detail > img:first-child { display: none; }
+
+  /* Sind die Bilder nach unten gewandert, liegt zwischen dem Textende und
+     ihnen nur noch Leerraum: 64 px Abschnittsrand + 16 px Absatzrand +
+     36 px Blockrand + 52 px Streifenrand = ueber 150 px, die man erst
+     wegscrollen muss. Hier deutlich kuerzen. Greift nur auf den
+     Leistungsseiten - "Ueber mich" setzt das Merkmal nie. */
+  .qom-leistungsseite .detail p:last-child { margin-bottom: 0; }
+  .qom-leistungsseite .section:has(> .detail) { padding-bottom: 24px; }
+  .qom-leistungsseite [data-qom-bloecke] > :first-child { padding-top: 16px; }
+  .qom-leistungsseite [data-qom-bloecke] .slider { margin-top: 20px; }
 }
 
 
