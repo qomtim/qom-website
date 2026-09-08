@@ -360,7 +360,7 @@
       // (zwei Bilder auf 1152 px Breite waren nur 170 px hoch).
       '.qom-mosaik:not(.qom-hero){grid-auto-rows:auto}',
       '.qom-mosaik:not(.qom-hero) img{height:auto;aspect-ratio:4/3}',
-      '.qom-nur-handy{display:none}',
+      '.qom-mosaik .qom-nur-handy,.slide-track .qom-nur-handy{display:none}',
       '.qom-mosaik-kopf{text-align:center;margin-bottom:34px}',
       '.qom-mosaik-kopf p{margin:14px auto 0;max-width:62ch}',
       // Kacheln mit Beschreibungstext: Text unter dem Bild statt darauf
@@ -377,7 +377,7 @@
       '  .qom-mosaik{grid-template-columns:1fr 1fr !important;grid-auto-rows:125px;gap:10px}',
       '  .qom-mosaik.qom-eins{grid-template-columns:1fr !important;grid-auto-rows:210px}',
       '  .qom-mosaik.qom-hero img:first-child{grid-column:span 2;grid-row:span 2}',
-      '  .qom-nur-handy{display:block}',
+      '  .qom-mosaik .qom-nur-handy,.slide-track .qom-nur-handy{display:block}',
       '  .qom-kachel img{aspect-ratio:16/9}',
       '  .qom-kachel-text{padding:16px 18px 20px}',
       '}',
@@ -411,7 +411,15 @@
     // stehen und schoben den Text am Handy weit nach unten.
     var ziel = container.querySelector('.qom-mosaik, .slide-track');
     if (!ziel || ziel.getAttribute('data-qom-ergaenzt')) return;
-    var detail = document.querySelector('.detail');
+    // Nur das feste .detail der Seite selbst, nicht eines aus einem Block:
+    // die Vorlage "bild_text" erzeugt ebenfalls ein .detail. Ohne diese
+    // Einschraenkung wuerde ein solcher Block auf einer Seite mit Galerie
+    // sein eigenes Bild am Handy ausblenden und nach unten kopieren.
+    var detail = null;
+    var alle = document.querySelectorAll('.detail');
+    for (var i = 0; i < alle.length; i++) {
+      if (!alle[i].closest('[data-qom-bloecke]')) { detail = alle[i]; break; }
+    }
     if (!detail) return;
 
     var quelle = detail.firstElementChild;
