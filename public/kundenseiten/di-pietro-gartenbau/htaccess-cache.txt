@@ -1,0 +1,30 @@
+
+# ===== QOM-Cache =====================================================
+# Der Server schickte fuer Seiten, Gestaltung und Skripte weder
+# Cache-Control noch Expires. Fehlen beide, raten Browser selbst, wie
+# lange eine Datei frisch bleibt - ueblicherweise ein Zehntel ihres
+# Alters. Eine zwei Wochen alte style.css galt damit noch gut einen Tag
+# als aktuell und wurde nicht einmal nachgefragt. Aenderungen an der
+# Seite kamen so bei Besuchern erst mit Verspaetung an.
+<IfModule mod_headers.c>
+
+  # Seiten, Gestaltung, Skripte und Daten: jedes Mal kurz beim Server
+  # rueckfragen. Hat sich nichts geaendert, antwortet er mit "304 -
+  # unveraendert" und schickt den Inhalt gar nicht erst mit. Das kostet
+  # fast nichts und die Seite ist immer aktuell.
+  <FilesMatch "\.(html|htm|css|js|json|xml)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header unset Expires
+    Header unset Pragma
+  </FilesMatch>
+
+  # Bilder und Schriften: eine Woche speichern. Sie aendern sich kaum,
+  # und so bleibt die Seite auf dem Handy schnell. Wird ein Bild doch
+  # einmal ersetzt, bekommt es einen neuen Dateinamen - dann ist es
+  # sofort ueberall zu sehen, ohne auf ablaufende Speicher zu warten.
+  <FilesMatch "\.(jpg|jpeg|png|webp|gif|svg|ico|avif|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+</IfModule>
+# ===== Ende QOM-Cache =================================================
