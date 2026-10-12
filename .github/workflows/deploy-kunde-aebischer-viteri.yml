@@ -1,0 +1,27 @@
+# Kundenseite Aebischer & Viteri → Infomaniak-Site aebischer-viteri.ch
+# Läuft NUR bei Push auf den Zweig kunde-aebischer-viteri (nicht auf main).
+name: Kundenseite Aebischer & Viteri hochladen
+
+on:
+  push:
+    branches: [kunde-aebischer-viteri]
+  workflow_dispatch: {}
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Per FTP in den Ordner aebischer-viteri.ch hochladen
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SITE: aebischer-viteri.ch
+          QUELLE: kunden/aebischer-viteri
+        run: node scripts/deploy-kunde-ftp.mjs

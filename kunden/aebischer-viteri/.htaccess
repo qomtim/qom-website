@@ -1,0 +1,25 @@
+# Aebischer & Viteri – statische Website (Inhalte live aus dem QOM-Portal)
+RewriteEngine On
+# https erzwingen (ausser Zertifikats-Prüfung)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# www -> ohne www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+AddType font/woff2 .woff2
+AddType image/webp .webp
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+<IfModule mod_headers.c>
+<FilesMatch "\.(woff2|webp|jpg|png)$">
+Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+<FilesMatch "\.(css|js)$">
+Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+<FilesMatch "\.html$">
+Header set Cache-Control "public, max-age=600"
+</FilesMatch>
+</IfModule>

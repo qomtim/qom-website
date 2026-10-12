@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aebischer-viteri.ch/sitemap.xml
