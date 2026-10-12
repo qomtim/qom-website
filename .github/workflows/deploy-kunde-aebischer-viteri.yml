@@ -19,9 +19,10 @@ jobs:
       - run: npm ci
       - name: Per FTP in den Ordner aebischer-viteri.ch hochladen
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          # Eigenes FTP-Konto der Site aebischer-viteri.ch (einmalig von Tim hinterlegt)
+          FTP_SERVER: ${{ secrets.AV_FTP_SERVER || secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.AV_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.AV_FTP_PASSWORD }}
           SITE: aebischer-viteri.ch
           QUELLE: kunden/aebischer-viteri
         run: node scripts/deploy-kunde-ftp.mjs

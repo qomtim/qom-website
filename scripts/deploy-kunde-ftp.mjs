@@ -24,14 +24,16 @@ try {
   const names = (await client.list()).map((f) => f.name);
   console.log("Inhalt des Start-Ordners:", names.join(", ") || "(leer)");
 
+  // Merkmale der Agentur-Website: Dort darf dieses Skript NIE hochladen.
+  const AGENTUR = ["_astro", "webdesign", "online-shops", "social-media-kampagnen"];
   let target;
-  if (names.includes(SITE)) target = SITE;                  // Start = /sites
+  if (names.includes(SITE)) target = SITE;                    // Start = /sites
   else if (names.includes("sites")) target = `sites/${SITE}`; // Start = Hosting-Root
-  else {
-    console.error(`❌ Ordner ${SITE} nicht gefunden – nichts hochgeladen. Inhalt siehe oben.`);
+  else if (AGENTUR.some((n) => names.includes(n))) {
+    console.error("❌ Das ist der Ordner der Agentur-Website – abgebrochen, nichts hochgeladen.");
     process.exit(1);
-  }
-  await client.cd(target);
+  } else target = ".";                                        // eigenes Konto der Kundenseite
+  if (target !== ".") await client.cd(target);
   console.log(`→ Ziel: ${target}`);
   console.log("Vorher im Ziel:", (await client.list()).map((f) => f.name).join(", ") || "(leer)");
   await client.uploadFromDir(QUELLE);
