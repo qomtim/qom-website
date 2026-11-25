@@ -1,0 +1,8 @@
+Zwischenablage fuer Kundenseiten-Dateien.
+
+Diese Dateien liegen hier NUR, damit sie ueber eine oeffentliche Adresse
+heruntergeladen werden koennen (das QOM-Portal war zeitweise nicht
+aktualisierbar). Sie enthalten keine Geheimnisse - nur den oeffentlichen
+Lese-Token, der ohnehin im Quelltext der Kundenseite steht.
+
+Nach dem Uebertragen koennen sie wieder geloescht werden.
